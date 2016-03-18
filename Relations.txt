@@ -1,0 +1,91 @@
+User
+	userId
+	password
+	lName
+	fName
+	email
+	city
+	province
+	country
+	-postalCode
+	-userName??? -or just email?
+	-profilePicture
+	-gender
+	
+Profile
+	userId
+	ageRange
+	yearBorn
+	occupation
+	deviceUsed
+	
+Topic
+	topicId
+	description
+	
+Movie
+	movieId
+	movieName
+	realeaseDate
+	-coverImage
+	-trailer???
+	-description
+	-suggestedRating???
+	-country
+		
+Watches
+	userId
+	movieId
+	date
+	rating
+	
+MovieTopic (Concerns)
+	topicId
+	movieId
+	language???
+	subtitles
+	country???
+	
+Actor
+	actorId
+	lName
+	fName
+	dOB (date of birth)
+	-image
+	-country
+	-gender
+	
+Role (consider it like the actor's character)
+	roleId
+	actorId
+	-fName
+	-lName
+	-gender
+	
+ActorPlays
+	movieId
+	actorId
+	
+Director
+	directorId
+	lName
+	fName
+	country
+	-gender
+	-dOB (date of birth)
+	
+Directs
+	directorId
+	movieId
+	
+Studio
+	studioId
+	name
+	country
+	-address
+	-postalCode
+	
+Sponsors
+	studioId
+	movieId
+	
