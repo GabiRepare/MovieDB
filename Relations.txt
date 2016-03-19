@@ -1,19 +1,13 @@
 User
 	userId
-	password
 	lName
 	fName
 	email
 	city
 	province
 	country
-	-postalCode
-	-userName??? -or just email?
-	-profilePicture
-	-gender
-	
-Profile
-	userId
+	-profilePicture???
+	gender
 	ageRange
 	yearBorn
 	occupation
@@ -29,9 +23,9 @@ Movie
 	realeaseDate
 	-coverImage
 	-trailer???
-	-description
+	description
 	-suggestedRating???
-	-country
+	country
 		
 Watches
 	userId
@@ -42,9 +36,9 @@ Watches
 MovieTopic (Concerns)
 	topicId
 	movieId
-	language???
+	-language???
 	subtitles
-	country???
+
 	
 Actor
 	actorId
@@ -52,15 +46,15 @@ Actor
 	fName
 	dOB (date of birth)
 	-image
-	-country
-	-gender
+	country
+	gender
 	
 Role (consider it like the actor's character)
 	roleId
 	actorId
-	-fName
-	-lName
-	-gender
+	fName
+	lName
+	gender
 	
 ActorPlays
 	movieId
@@ -71,8 +65,8 @@ Director
 	lName
 	fName
 	country
-	-gender
-	-dOB (date of birth)
+	gender
+	dOB (date of birth)
 	
 Directs
 	directorId
@@ -82,8 +76,8 @@ Studio
 	studioId
 	name
 	country
-	-address
-	-postalCode
+	-address???
+	-postalCode???
 	
 Sponsors
 	studioId
