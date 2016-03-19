@@ -24,7 +24,7 @@ yearBorn integer,
 occupation varchar(40),
 deviceUsed varchar(40),
 CONSTRAINT UserPKey PRIMARY KEY (userId),
-CONSTRAINT UserEmail CHECK (email LIKE '%@%.@'),
+CONSTRAINT UserEmail CHECK (email LIKE '%@%.%'),
 CONSTRAINT UserGender CHECK (gender = 'male' OR gender = 'female'),
 CONSTRAINT UserYearBorn CHECK (yearBorn > 0 AND yearBorn < 2016)
 );

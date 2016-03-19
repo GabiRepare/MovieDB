@@ -1,0 +1,2 @@
+contraint on watch date > movie release date
+default value for rating (-1)->change the constraint
