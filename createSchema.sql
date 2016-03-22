@@ -23,6 +23,7 @@ ageRange integer,
 yearBorn integer,
 occupation varchar(40),
 deviceUsed varchar(40),
+image OID,
 CONSTRAINT UserPKey PRIMARY KEY (userId),
 CONSTRAINT UserEmail CHECK (email LIKE '%@%.%'),
 CONSTRAINT UserGender CHECK (gender = 'male' OR gender = 'female'),
@@ -89,12 +90,12 @@ CONSTRAINT RoleGender CHECK (gender = 'male' OR gender = 'female'),
 FOREIGN KEY (actorId) REFERENCES Actor
 );
 
-CREATE TABLE ActorPlays(
+CREATE TABLE RolePlaysIn(
 movieId varchar(20),
-actorId varchar(20),
-CONSTRAINT ActorPlaysPKey PRIMARY KEY (movieId, actorId),
+RoleId varchar(20),
+CONSTRAINT ActorPlaysPKey PRIMARY KEY (movieId, roleId),
 FOREIGN KEY (movieId) REFERENCES Movie,
-FOREIGN KEY(actorId) REFERENCES Actor
+FOREIGN KEY(roleId) REFERENCES Role
 );
 
 

@@ -78,7 +78,7 @@ VALUES
 43,
 1901,
 'Brigadier General',
-'hiw wits');
+'his wits');
 
 --DELETE FROM Movie
 --SELECT * FROM Movie
@@ -195,21 +195,34 @@ VALUES
 ('rol0007', 'act0003', '', 'Hulk', 'male'),
 ('rol0008', 'act0004', '', 'Black Widow', 'female');
 
---DELETE FROM ActorPlays
---SELECT * FROM ActorPlays
+--DELETE FROM RolePlaysIn
+--SELECT * FROM RolePlaysIn
 
-INSERT INTO ActorPlays(movieId, actorId)
+INSERT INTO RolePlaysIn(movieId, roleId)
 VALUES
-('mov001','act0001'),
-('mov001','act0002'),
-('mov001','act0003'),
-('mov001','act0004'),
-('mov002','act0001'),
-('mov002','act0002'),
-('mov002','act0003'),
-('mov002','act0004'),
-('mov003','act0002'),
-('mov004','act0002');
+('mov001','rol0001'),
+('mov001','rol0002'),
+('mov001','rol0003'),
+('mov001','rol0004'),
+('mov001','rol0005'),
+('mov001','rol0006'),
+('mov001','rol0007'),
+('mov001','rol0008'),
+('mov002','rol0001'),
+('mov002','rol0002'),
+('mov002','rol0003'),
+('mov002','rol0004'),
+('mov002','rol0005'),
+('mov002','rol0006'),
+('mov002','rol0007'),
+('mov002','rol0008'),
+('mov003','rol0002'),
+('mov003','rol0006'),
+('mov004','rol0002'),
+('mov003','rol0004'),
+('mov004','rol0006'),
+('mov003','rol0008');
+
 
 --DELETE FROM Director
 --SELECT * FROM Director
