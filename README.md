@@ -8,3 +8,5 @@ populateData.sql is a script that populate the DB with fictive data.
 Things to change.txt is some sort of todo list.
 
 Relations.txt is the general outline of the DB.
+
+Pages Sketches contains drawings of the planned webpages.
