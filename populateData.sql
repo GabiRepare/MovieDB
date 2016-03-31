@@ -13,78 +13,48 @@ set search_path = "moviedb";
 --SELECT * FROM Users
 
 
-INSERT INTO Users(userId, lName, fName, email, city, province, country, gender, agerange, yearborn, occupation, deviceused)
+INSERT INTO Users(userId, lName, fName, email, gender, ageRangeId)
 VALUES
 ('user0001',
 'Posey',
 'Samson',
 'samson.posey@gmail.com',
-'Clint',
-'Walker',
-'USA',
-'male',
-26,
-1918,
-'Private',
-'M3 Grease Gun'),
+'m',
+5),
 
 ('user0002',
 'Franko',
 'Victor',
 'victor.franco@gmail.com',
-'John',
-'Cassavetes',
-'USA',
-'male',
-38,
-1906,
-'Private',
-'M3 Grease Gun'),
+'m',
+6),
 
 ('user0003',
 'Reisman',
 'Posey',
 'posey.reisman@gmail.com',
-'Lee',
-'Marvion',
-'USA',
-'male',
-34,
-1910,
-'Major',
-'MP40'),
+'m',
+6),
 
 ('user0004',
 'Worden',
 'Sam',
 'sam.worden@rogers.com',
-'Ernest',
-'Borgnine',
-'USA',
-'male',
-44,
-1900,
-'Major General',
-'none'),
+'m',
+6),
 
 ('user0005',
 'Denton',
 'Samus',
 'samus.denton@hotmail.com',
-'Robert',
-'Webber',
-'USA',
-'male',
-43,
-1901,
-'Brigadier General',
-'his wits');
+'m',
+6);
 
 --DELETE FROM Movie
 --SELECT * FROM Movie
 
 INSERT INTO Movie(movieid, moviename, releasedate, description, country)
-VALUES 
+VALUES
 ('mov001',
 'The Avengers',
 '2012-05-04',
@@ -138,7 +108,7 @@ VALUES
 --DELETE FROM Watches
 --SELECT * FROM Watches
 
-INSERT INTO Watches(userId,movieId, watchDate, rating)
+INSERT INTO Rates(userId,movieId, watchDate, rating)
 VALUES
 ('user0001', 'mov002', '2013-03-19', null),
 ('user0002', 'mov002', '2016-01-13', 4),
@@ -185,7 +155,7 @@ VALUES
 --SELECT * FROM Role
 
 INSERT INTO Role(roleId, actorId, lName, fName, gender)
-VALUES 
+VALUES
 ('rol0001', 'act0001', 'Stark', 'Tony', 'male'),
 ('rol0002', 'act0002', 'Rogers', 'Steve', 'male'),
 ('rol0003', 'act0003', 'Banner', 'Bruce', 'male'),
@@ -266,4 +236,3 @@ VALUES
 ('stu001', 'mov003'),
 ('stu001', 'mov004'),
 ('stu002', 'mov005');
-

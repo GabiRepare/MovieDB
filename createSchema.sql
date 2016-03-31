@@ -14,21 +14,26 @@ CREATE TABLE Users(
 userId varchar(20),
 lName varchar(20),
 fName varchar(20),
-email varchar(40),
-city varchar(40),
-province varchar(40),
-country varchar(40),
-gender varchar(6),
-ageRange integer,
-yearBorn integer,
-occupation varchar(40),
-deviceUsed varchar(40),
-image OID,
+email varchar(40),1901,
+'Brigadier General',
+'his wits'
+gender varchar(1),
+ageRange smallint,
 CONSTRAINT UserPKey PRIMARY KEY (userId),
 CONSTRAINT UserEmail CHECK (email LIKE '%@%.%'),
-CONSTRAINT UserGender CHECK (gender = 'male' OR gender = 'female'),
-CONSTRAINT UserYearBorn CHECK (yearBorn > 0 AND yearBorn < 2016)
+CONSTRAINT UserGender CHECK (gender = 'm' OR gender = 'f'),
+FOREIGN KEY (ageRangeId) REFERENCES AgeRange
 );
+
+CREATE TABLE AgeRange(
+ageRangeId smallint,
+minimum smallint,
+maximum smallint,
+CONSTRAINT AgeRangePKey PRIMARY KEY (ageRangeId)
+);
+
+INSERT INTO AgeRange(rangeId, minimum, maximum)
+VALUES (1,0,5),(2,6,10),(3,11,15),(4,16,20),(5,21,30),(6,31,60),(7,61,120);
 
 CREATE TABLE Topic(
 topicId varchar(20),
@@ -43,21 +48,53 @@ movieName varchar(40),
 releaseDate DATE,
 description TEXT,
 country varchar(40),
+sumRating integer DEFAULT 0,
+numberRating integer DEFAULT 0,
 CONSTRAINT MoviePKey PRIMARY KEY (movieId)
 );
 
 
-CREATE TABLE Watches(
+CREATE TABLE Rates(
 userId varchar(20),
 movieId varchar(20),
 watchDate DATE,
 rating integer,
-CONSTRAINT WatchesPKey PRIMARY KEY (userId, movieId),
-CONSTRAINT WathcesRating CHECK (rating >=0 AND rating <=5),
+CONSTRAINT RatesPKey PRIMARY KEY (userId, movieId),
+CONSTRAINT RatesRating CHECK (rating >=0 AND rating <=5),
 FOREIGN KEY (userId) REFERENCES Users,
 FOREIGN KEY (movieId) REFERENCES Movie
 );
 
+CREATE OR REPLACE FUNCTION movie_rating_update() RETURNS TRIGGER AS $$
+    DECLARE
+        delta_movieId       varchar(20);
+        delta_numberRating  integer;
+        delta_sumRating     integer;
+    BEGIN
+        IF (TG_OP = 'DELETE') THEN
+            delta_movieId = old.movieId;
+            delta_numberRating = -1;
+            delta_sumRating = -1*OLD.rating;
+        ELSIF (TG_OP = 'UPDATE') THEN
+            delta_movieId = OLD.movieId;
+            delta_numberRating = 0;
+            delta_sumRating = NEW.rating - OLD.rating;
+        ELSIF (TG_OP = 'INSERT') THEN
+            delta_movieId = NEW.movieId;
+            delta_sumRating = 1;
+            delta_sumRating = NEW.rating;
+        END IF;
+        UPDATE Movie
+            SET numberRating = numberRating + delta_numberRating,
+                sumRating = sumRating + delta_sumRating
+                WHERE movieId = delta_movieId;
+        RETURN NULL;
+    END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER ratingUpdate
+AFTER INSERT OR UPDATE OR DELETE ON Rates
+FOR EACH ROW EXECUTE PROCEDURE movie_rating_update();
 
 CREATE TABLE MovieTopic(
 topicId varchar(20),
