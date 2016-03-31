@@ -14,9 +14,7 @@ CREATE TABLE Users(
 userId varchar(20),
 lName varchar(20),
 fName varchar(20),
-email varchar(40),1901,
-'Brigadier General',
-'his wits'
+email varchar(40),
 gender varchar(1),
 ageRange smallint,
 CONSTRAINT UserPKey PRIMARY KEY (userId),
