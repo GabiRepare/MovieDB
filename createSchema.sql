@@ -10,6 +10,13 @@ Creates the schema for the movie database.
 CREATE SCHEMA moviedb;
 set search_path = "moviedb";
 
+CREATE TABLE AgeRange(
+ageRangeId smallint,
+minimum smallint,
+maximum smallint,
+CONSTRAINT AgeRangePKey PRIMARY KEY (ageRangeId)
+);
+
 CREATE TABLE Users(
 userId varchar(20),
 lName varchar(20),
@@ -23,14 +30,7 @@ CONSTRAINT UserGender CHECK (gender = 'm' OR gender = 'f'),
 FOREIGN KEY (ageRangeId) REFERENCES AgeRange
 );
 
-CREATE TABLE AgeRange(
-ageRangeId smallint,
-minimum smallint,
-maximum smallint,
-CONSTRAINT AgeRangePKey PRIMARY KEY (ageRangeId)
-);
-
-INSERT INTO AgeRange(rangeId, minimum, maximum)
+INSERT INTO AgeRange(ageRangeId, minimum, maximum)
 VALUES (1,0,5),(2,6,10),(3,11,15),(4,16,20),(5,21,30),(6,31,60),(7,61,120);
 
 CREATE TABLE Topic(
