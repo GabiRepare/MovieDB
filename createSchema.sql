@@ -79,7 +79,7 @@ CREATE OR REPLACE FUNCTION movie_rating_update() RETURNS TRIGGER AS $$
             delta_sumRating = NEW.rating - OLD.rating;
         ELSIF (TG_OP = 'INSERT') THEN
             delta_movieId = NEW.movieId;
-            delta_sumRating = 1;
+            delta_numberRating = 1;
             delta_sumRating = NEW.rating;
         END IF;
         UPDATE Movie
