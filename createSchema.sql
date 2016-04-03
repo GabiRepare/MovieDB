@@ -25,11 +25,11 @@ userId varchar(20),
 lName varchar(20),
 fName varchar(20),
 email varchar(40),
-gender varchar(6),
+gender varchar(1),
 ageRangeId smallint,
 CONSTRAINT UserPKey PRIMARY KEY (userId),
 CONSTRAINT UserEmail CHECK (email LIKE '%@%.%'),
-CONSTRAINT UserGender CHECK (gender = 'm' OR gender = 'f'OR gender = 'male' OR gender = 'female'),
+CONSTRAINT UserGender CHECK (gender = 'm' OR gender = 'f'),
 FOREIGN KEY (ageRangeId) REFERENCES AgeRange (ageRangeId)
 );
 
@@ -42,7 +42,7 @@ CONSTRAINT TopicPKey PRIMARY KEY (topicId)
 
 CREATE TABLE Movie(
 movieId varchar(20),
-movieName varchar(100),
+movieName varchar(40),
 releaseDate DATE,
 description TEXT,
 country varchar(40),
@@ -111,7 +111,7 @@ dOB DATE,
 country varchar(40),
 gender varchar(6),
 CONSTRAINT ActorPKey PRIMARY KEY (actorId),
-CONSTRAINT ActorGender CHECK (gender = 'm' OR gender = 'f' OR gender = 'male' OR gender = 'female')
+CONSTRAINT ActorGender CHECK (gender = 'male' OR gender = 'female')
 );
 
 CREATE TABLE Role(
