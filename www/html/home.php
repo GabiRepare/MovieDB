@@ -4,7 +4,7 @@
 <title>Movie Exchange Home</title>
 </head>
 <?php
-    $conn_string = "host=www2.movieexchange.xyz port=15432 dbname=moviedb user=guest password=20160411Due";
+    $conn_string = "host=www2.movieexchange.xyz port=5432 dbname=moviedb user=guest password=20160411Due";
     $dbconn = pg_connect($conn_string) or die("Connection failed");
     
 
