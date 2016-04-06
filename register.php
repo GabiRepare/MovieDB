@@ -140,8 +140,24 @@ echo "<span style=color:#FF0000;text-align:center;>Username already exists, try 
 <input type="submit" name="save" value="Register"/>
 </p>
 </form>
-
-
  </center>
+ <script>
+ var password = document.getElementById("password")
+  , confirm_password = document.getElementById("confpassword");
+
+function validatePassword(){
+  if(password.value != confpassword.value) {
+    confpassword.setCustomValidity("Passwords Don't Match");
+  } else {
+    confpassword.setCustomValidity('');
+  }
+}
+
+password.onchange = validatePassword;
+confpassword.onkeyup = validatePassword;
+ 
+ </script>
+ 
+ 
 </body>
 </html>
