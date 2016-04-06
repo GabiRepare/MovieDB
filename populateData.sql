@@ -378,6 +378,7 @@ VALUES
 INSERT INTO Actor(actorId, lName, fName, dOB, country, gender)
 VALUES
 
+
 ('act0001',
 'Downey',
 'Robert',
@@ -405,7 +406,6 @@ VALUES
 '1982-4-3',
 'Canada',
 'male'),
-
 ('act0005',
 'Johansson',
 'Scarlett',
@@ -458,6 +458,7 @@ VALUES
 ('rol0007', 'act0003', '', 'Hulk', 'male'),
 ('rol0008', 'act0004', '', 'Black Widow', 'female'),
 ('rol0009', 'act0005', 'Hill','Maria','female');
+
 --DELETE FROM RolePlaysIn
 --SELECT * FROM RolePlaysIn
 
