@@ -1,0 +1,108 @@
+body {
+    font-family: Calibri, sans-serif;
+    margin: 0px;
+    background-color: white;
+}
+
+h1 {
+    color: blue;
+    font-size: 40px;
+    padding-top: 30px;
+    margin: 0px;
+    font-weight: normal;
+    float: left;
+}
+
+#header {
+    background-color: black;
+    height: 80px;
+    margin: 0px;
+    color: white;
+}
+
+#header p {
+    float: right;
+    display: inline;
+    margin: 5px;
+}
+
+#header a {
+    float: right;
+    display: inline;
+    margin: 5px;
+    color: white;
+}
+
+#top_pane {
+    width: 100%;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    display: inline-flex;;
+}
+
+#left_pane {
+    width: 20%;
+    float: left;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    box-sizing: border-box;
+}
+
+#right_pane {
+    width: 80%;
+    float: right;
+}
+
+#browse_pane {
+    background-color: #DDDDDD;
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    height: 400px;
+}
+
+#top_search {
+    width: 100%;
+    text-align: center;
+}
+
+#search_tool {
+    width: 50%;
+    text-align: center;
+    display: inline-flex;
+    font-size: 1.25em;
+    height: 2em;
+    line-height: 2em;
+    margin: 0 auto;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+
+#search_tool * {
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+}
+
+
+
+.button {
+    background-color: #DDDDDD;
+    font-size: 1.5em;
+    width: 10em;
+    height: 3em;
+    display: block;
+    text-decoration: none;
+    text-align: center;
+    color: Black;
+    vertical-align: middle;
+    line-height: 3em;
+    float: left;
+}
+
+#suggestions {
+    background-color: #666666;
+    color: white;
+}
