@@ -28,7 +28,7 @@ if(isset($_SESSION['username'])){
     <body>
         <div id="header">
             <h1>MovieExchange</h1>
-            <a href="">Logout</a>
+            <a href="logout.php">Logout</a>
             <a href="">Account Settings</a>
             <p>Logged as <?php echo $usname ?></p>
         </div>
