@@ -54,7 +54,7 @@ pg_close($dbconn);
 Username: <input type="text" name="username" /> <br/><br/>
 Password: <input type="password" name="password" /> <br/>
 <input type="submit" value="Login" name="Submit" /><br/>
-Not registered yet? <a href='/moviedb/register.php'>Click Here to Register</a>
+Not registered yet? <a href='register.php'>Click Here to Register</a>
 </form>
 
 
