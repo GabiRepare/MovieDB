@@ -1,3 +1,24 @@
+<?php
+session_start();
+
+if(isset($_SESSION['username'])){
+
+  $usname=$_SESSION['username'];
+
+  //database connection string
+  $conn_string="host=www2.movieexchange.xyz port=5432 dbname=moviedb user=guest password=20160411Due";
+
+  //Connect to database
+  $dbconn=pg_connect($conn_string) or die("Connection Failed");
+
+  $msg="You are logged in, Welcome!";
+
+
+}else{
+	header("Location: index.php");
+}
+?>
+
 <!Doctype html>
 <html>
     <header>
@@ -9,7 +30,7 @@
             <h1>MovieExchange</h1>
             <a href="">Logout</a>
             <a href="">Account Settings</a>
-            <p>Logged as bob324</p>
+            <p>Logged as <?php echo $usname ?></p>
         </div>
         <div id="top_pane">
             <a href="" class="button" id="browse_btn">Rate Movies</a>

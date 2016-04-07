@@ -3,7 +3,11 @@ session_start();
 
 if(isset($_POST['username'])) {
 
+//database connection string
+$conn_string="host=www2.movieexchange.xyz port=5432 dbname=moviedb user=guest password=20160411Due";
 
+//Connect to database
+$dbconn=pg_connect($conn_string) or die("Connection Failed");
 //get info user entered
   $usname=strip_tags($_POST["username"]);
   $paswd=strip_tags($_POST["password"]);
@@ -17,16 +21,16 @@ $dbconn=pg_connect($conn_string) or die("Connection Failed");
 $query="SELECT * FROM moviedb.USERS WHERE Userid=$1 AND Password=$2";
 $stmt=pg_prepare($dbconn, "ps", $query);
 $result=pg_execute($dbconn,"ps",array($usname, $paswd));
- 
+
  if(!$result){
 	 die("Error in SQL: ".pg_last_error());
-	
- }	
- 
+
+ }
+
  $row_count=pg_num_rows($result);
  if($row_count>0){
-	 $_SESSION['username']=$usname; 
-	 header("Location: user.php");
+	 $_SESSION['username']=$usname;
+	 header("Location: browse.php");
 	 exit;
  }else{
 	 echo "Wrong login or password, please try again.";
