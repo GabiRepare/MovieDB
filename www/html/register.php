@@ -2,11 +2,11 @@
 $conn_string="host=www2.movieexchange.xyz port=5432 dbname=moviedb user=guest password=20160411Due";
 $dbconn=pg_connect($conn_string) or die("Connection to the Server Failed");
 $success=0;
-	
-	
+
+
 
 if(array_key_exists('save',$_POST)){
-	
+
 	$userid=$_POST['userid'];
 	$lname=$_POST['lname'];
 	$fname=$_POST['fname'];
@@ -14,43 +14,43 @@ if(array_key_exists('save',$_POST)){
 	$gender=$_POST['gender'];
 	$agerange=$_POST['age'];
 	$password=$_POST['password'];
-	
-	
-	
-	
+
+
+
+
 	$checkuserid="SELECT * FROM moviedb.USERS WHERE userid=$1";
 	$stmt=pg_prepare($dbconn, "ps", $checkuserid);
 	$result1=pg_execute($dbconn,"ps",array($userid));
-	
-	
+
+
 	if(!$result1){
 		die("Error in SQL: ".pg_last_error());
 	}
-	
+
 	$row_count=pg_num_rows($result1);
-	
+
 	if($row_count>0){
 		$success=1;
 		pg_free_result($result1);
 	}else{
-	
-	
+
+
 	$query="INSERT INTO moviedb.USERS(userid, lname, fname, email, gender, agerange, password) VALUES ('$userid','$lname','$fname', '$email', '$gender', '$agerange', '$password')";
 	$result=pg_query($dbconn, $query);
-	
+
 	if(!$result){
 		die("Error in SQL entry: ".pg_last_error());
 	}
-	$success=2; 
-	
-	
+	$success=2;
+
+
 	pg_free_result($result);
 	}
 	pg_close($dbconn);
-	
+
 }
 
-	
+
 ?>
 
 
@@ -58,23 +58,23 @@ if(array_key_exists('save',$_POST)){
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" type="text/css" href="css/style1.css/>
-<title>Register</title>
+<link rel="stylesheet" type="text/css" href="css/style1.css"/>
+<title>Settings</title>
 </head>
 
 <body>
 <div id="header"></div>
 <center>
-User Registration Form<br>
+Settings Page<br>
 <?php
 if($success==2){
 	echo "<span style=color:#FF0000;text-align:center;>Registration Completed Successfully  "."<a href='index.php'>Click here to login</a></span>";
-}else if($success==1){ 
+}else if($success==1){
 echo "<span style=color:#FF0000;text-align:center;>Username already exists, try again</span>";
 }else{}
-  
 
- 
+
+
  ?>
  <br>
 
@@ -133,9 +133,9 @@ function validatePassword(){
 
 password.onchange = validatePassword;
 confpassword.onkeyup = validatePassword;
- 
+
  </script>
- 
- 
+
+
 </body>
 </html>

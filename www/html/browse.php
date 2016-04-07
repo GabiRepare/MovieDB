@@ -29,7 +29,7 @@ if(isset($_SESSION['username'])){
         <div id="header">
             <h1>MovieExchange</h1>
             <a href="logout.php">Logout</a>
-            <a href="">Account Settings</a>
+            <a href="settings.php">Account Settings</a>
             <p>Logged as <?php echo $usname ?></p>
         </div>
         <div id="top_pane">
