@@ -1,6 +1,11 @@
 <?php
 session_start();
 
+//Skip login page if user already logged in
+if(isset($_SESSION['username'])){
+    header("Location: browse.php");
+}
+
 if(isset($_POST['username'])) {
 
 //database connection string
