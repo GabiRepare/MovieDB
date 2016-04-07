@@ -11,13 +11,8 @@ if(array_key_exists('save',$_POST)){
 	$lname=$_POST['lname'];
 	$fname=$_POST['fname'];
 	$email=$_POST['email'];
-	$city=$_POST['city'];
-	$province=$_POST['province'];
-	$country=$_POST['country'];
 	$gender=$_POST['gender'];
 	$agerange=$_POST['age'];
-	$occupation=$_POST['occupation'];
-	$deviceused=$_POST['deviceused'];
 	$password=$_POST['password'];
 	
 	
@@ -40,9 +35,7 @@ if(array_key_exists('save',$_POST)){
 	}else{
 	
 	
-	$query="INSERT INTO moviedb.USERS(userid, lname, fname, email, city, province, country, gender, agerange,
-	occupation, deviceused, password) VALUES ('$userid','$lname','$fname', '$email', '$city', '$province', '$country', '$gender', '$agerange', 
-	'$occupation', '$deviceused', '$password')";
+	$query="INSERT INTO moviedb.USERS(userid, lname, fname, email, gender, agerange, password) VALUES ('$userid','$lname','$fname', '$email', '$gender', '$agerange', '$password')";
 	$result=pg_query($dbconn, $query);
 	
 	if(!$result){
@@ -98,15 +91,6 @@ echo "<span style=color:#FF0000;text-align:center;>Username already exists, try 
 <p><label for="email">Email: </label><br>
 <input name="email" type="email" style = "font-size:7pt;" id="email" required/>
 </p>
-<p><label for="city">City: </label><br>
-<input name="city" type="text" style = "font-size:7pt;" id="city" required/>
-</p>
-<p><label for="province">Province: </label><br>
-<input name="province" type="text" style = "font-size:7pt;" id="province" required/>
-</p>
-<p><label for="country">Country: </label><br>
-<input name="country" type="text" style = "font-size:7pt;" id="country" required/>
-</p>
 <p><label for "gender">Gender: </label><br>
 <select name="gender" required>
 	<option value="male">Male</option>
@@ -123,12 +107,6 @@ echo "<span style=color:#FF0000;text-align:center;>Username already exists, try 
 	<option value="6">31-60</option>
 	<option value="7">60+</option>
 </select>
-</p>
-<p><label for="occupation">Occupation (optional): </label><br>
-<input name="occupation" type="text" style = "font-size:7pt;" id="occupation"/>
-</p>
-<p><label for="deviceused">What Type of device are you using?(optional): </label><br>
-<input name="deviceused" type="text" style = "font-size:7pt;" id="deviceused"/>
 </p>
 <p><label for="password">Create Password (4-20 characters) </label><br>
 <input name="password" type="password" style = "font-size:7pt;" id="password" pattern=".{4,20}" required/>
