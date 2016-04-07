@@ -49,7 +49,7 @@ pg_close($dbconn);
 
 <body>
 <div id="wrapper">
-<h1>Welcome to Movie Database</h1>
+<h1>Welcome to MovieExchange</h1>
 <form id="form" action="index.php" method="post" enctype="multipart/form-data">
 Username: <input type="text" name="username" /> <br/><br/>
 Password: <input type="password" name="password" /> <br/>
