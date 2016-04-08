@@ -52,9 +52,16 @@
                WHERE MovieTopic.movieId='$row[0]';";
     $result4 = pg_query($dbconn, $query4);
 
-    if(!$result or !$result2 or !$result3 or !$result4){
-       die("KABOOM".pg_last_error());
-    }
+    if(!$result){
+       die("Error in movie query".pg_last_error());
+   } elseif (!$result2) {
+       die("Error in movie director query".pg_last_error());
+   } elseif (!$result3) {
+       die("Error in movie actor query".pg_last_error());
+   } elseif (!$result4) {
+       die("Error in movie topic query".pg_last_error());
+   }
+
     while($row = pg_fetch_array($result)) {?>
         <h1><?php echo $row[1]?></h1>
         <img src="/images/<?php echo $row[0]?>.jpg">
