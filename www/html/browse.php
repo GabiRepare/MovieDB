@@ -96,10 +96,10 @@ if(isset($_SESSION['username'])){
                                                                                  echo $row2[0];
                                                                              }
                                                                              $count = 1;
-                                                                             while($count < $MAX_NAME and $row2 = pg_fetch_array($result2)) {
-                                                                                 echo ', ':$row2[0];
-                                                                                 $count++;
-                                                                             }
+                                                                            //  while($count < $MAX_NAME and $row2 = pg_fetch_array($result2)) {
+                                                                            //      echo ', ':$row2[0];
+                                                                            //      $count++;
+                                                                            //  }
                                                                              if ($row2 = pg_fetch_array($result2)){
                                                                                  echo ', ...';
                                                                              }
