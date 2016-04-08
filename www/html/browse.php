@@ -84,7 +84,7 @@ if(isset($_SESSION['username'])){
                         </tr>
                         <tr>
                             <td class="movie_directors">Director(s): <?php
-                                                                        $query2 = "SELECT fName||' '||lName AS name FROM moviedb.director WHERE moviedb.director.movieId = $row[0]";
+                                                                        $query2 = "SELECT fName||' '||lName AS name FROM moviedb.director WHERE director.movieId = $row[0]";
                                                                          $result2 = pg_query($dbconn, $query2);
                                                                          if(!$result2){
                                                                             die("KABOOM".pg_last_error());
