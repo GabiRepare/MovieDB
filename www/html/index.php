@@ -36,7 +36,7 @@ $result=pg_execute($dbconn,"ps",array($usname, $paswd));
  if($row_count>0){
 	 $_SESSION['username']=$usname;
 	 header("Location: browse.php");
-	 exit;
+	 die("Already logged in");
  }else{
 	 echo "Wrong login or password, please try again.";
  }
