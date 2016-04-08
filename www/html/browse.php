@@ -22,6 +22,16 @@ if(isset($_SESSION['username'])){
 	header("Location:index.php");
     die("Not logged in");
 }
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    //something posted
+
+    if (isset($_POST['btnDelete'])) {
+        // btnDelete
+    } else {
+        //assume btnSubmit
+    }
+}
 ?>
 
 <!Doctype html>
@@ -72,18 +82,21 @@ if(isset($_SESSION['username'])){
                                 <p class="movie_year">(<?php echo $row[2]?>)</p>
                             </td>
                             <td class="rating_stars" rowspan="2">
+                                <form action="setrating.php" method="post">
                                 <fieldset class="rating">
-                                    <input onchange='this.form.submit();' type="radio" id="star5" name="rating1" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
-                                    <input onchange='this.form.submit();' type="radio" id="star4half" name="rating1" value="4 and a half" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
-                                    <input onchange='this.form.submit();' type="radio" id="star4" name="rating1" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
-                                    <input onchange='this.form.submit();' type="radio" id="star3half" name="rating1" value="3 and a half" /><label class="half" for="star3half" title="Meh - 3.5 stars"></label>
-                                    <input onchange='this.form.submit();' type="radio" id="star3" name="rating1" value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
-                                    <input onchange='this.form.submit();' type="radio" id="star2half" name="rating1" value="2 and a half" /><label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
-                                    <input onchange='this.form.submit();' type="radio" id="star2" name="rating1" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
-                                    <input onchange='this.form.submit();' type="radio" id="star1half" name="rating1" value="1 and a half" /><label class="half" for="star1half" title="Meh - 1.5 stars"></label>
-                                    <input onchange='this.form.submit();' type="radio" id="star1" name="rating1" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
-                                    <input onchange='this.form.submit();' type="radio" id="starhalf" name="rating1" value="half" /><label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
+                                    <input onchange='this.form.submit();' type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
+                                    <input onchange='this.form.submit();' type="radio" id="star4half" name="rating" value="4 and a half" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
+                                    <input onchange='this.form.submit();' type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
+                                    <input onchange='this.form.submit();' type="radio" id="star3half" name="rating" value="3 and a half" /><label class="half" for="star3half" title="Meh - 3.5 stars"></label>
+                                    <input onchange='this.form.submit();' type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
+                                    <input onchange='this.form.submit();' type="radio" id="star2half" name="rating" value="2 and a half" /><label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
+                                    <input onchange='this.form.submit();' type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
+                                    <input onchange='this.form.submit();' type="radio" id="star1half" name="rating" value="1 and a half" /><label class="half" for="star1half" title="Meh - 1.5 stars"></label>
+                                    <input onchange='this.form.submit();' type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
+                                    <input onchange='this.form.submit();' type="radio" id="starhalf" name="rating" value="half" /><label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
+                                    <input type="hidden" name="movieId" value="<?php echo $row[0];?>">
                                 </fieldset>
+                            </form>
                             </td>
                         </tr>
                         <tr>
@@ -167,5 +180,13 @@ if(isset($_SESSION['username'])){
                 </table>
             </div>
         </div>
+        <script type="text/javascript">
+           <!--
+              function setRating(movieId,rating)
+              {
+
+              }
+           //-->
+        </script>
     </body>
 </html>
