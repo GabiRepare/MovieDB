@@ -61,7 +61,7 @@ if(isset($_SESSION['username'])){
 
                     <tr><td><table class="result_entry">
                         <tr class="first_entry_row">
-                            <td class="movie_img" rowspan="4"><img src="<?php echo $row[0]?>.jpg"</td>
+                            <td class="movie_img" rowspan="4"><img src="/images/<?php echo $row[0]?>.jpg"</td>
                             <td class="movie_title_line">
                                 <p><?php echo $row[1]?></p>
                                 <p class="movie_year">(<?php echo $row[2]?>)</p>
