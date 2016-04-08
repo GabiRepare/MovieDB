@@ -1,7 +1,7 @@
 <?php
 //Constants
-// $GLOBALS['MAX_NAME']=5;
-// $GLOBALS['NUM_RESULT_PAGE']=20;
+$GLOBALS['MAX_NAME']=5;
+$GLOBALS['NUM_RESULT_PAGE']=20;
 
 session_start();
 
@@ -52,8 +52,7 @@ if(isset($_SESSION['username'])){
                 </div>
                 <table id="result_table">
                     <?php
-                        $query = "SELECT movieId, movieName, EXTRACT(YEAR FROM releaseDate) AS year, numberRating,
-                         ROUND(1.0*sumRating/numberRating,1) AS avg FROM moviedb.movie ORDER BY avg DESC LIMIT $GLOBALS['NUM_RESULT_PAGE']";
+                        $query = "SELECT movieId, movieName, EXTRACT(YEAR FROM releaseDate) AS year, numberRating, ROUND(1.0*sumRating/numberRating,1) AS avg FROM moviedb.movie ORDER BY avg DESC LIMIT".(string)$GLOBALS['NUM_RESULT_PAGE'].";";
                          $result = pg_query($dbconn, $query);
                          if(!$result){
                          	die("KABOOM".pg_last_error());
@@ -84,26 +83,26 @@ if(isset($_SESSION['username'])){
                         </tr>
                         <tr>
                             <td class="movie_directors">Director(s): <?php
-                                                                        // $query2 = "SELECT fName||' '||lName AS name FROM moviedb.director
-                                                                        //            INNER JOIN moviedb.directs
-                                                                        //            ON directs.directorid=director.directorid
-                                                                        //            WHERE directs.movieid='$row[0]';";
-                                                                        //  $result2 = pg_query($dbconn, $query2);
-                                                                        //  if(!$result2){
-                                                                        //     die("KABOOM".pg_last_error());
-                                                                        // } else {
-                                                                        //      if($row2 = pg_fetch_array($result2)){
-                                                                        //          echo $row2[0];
-                                                                        //      }
-                                                                        //      $count = 1;
-                                                                        //     //  while($count < $GLOBALS['MAX_NAME'] and $row2 = pg_fetch_array($result2)) {
-                                                                        //     //      echo ', ':$row2[0];
-                                                                        //     //      $count++;
-                                                                        //     //  }
-                                                                        //      if ($row2 = pg_fetch_array($result2)){
-                                                                        //          echo ', ...';
-                                                                        //      }
-                                                                        //  }
+                                                                        $query2 = "SELECT fName||' '||lName AS name FROM moviedb.director
+                                                                                   INNER JOIN moviedb.directs
+                                                                                   ON directs.directorid=director.directorid
+                                                                                   WHERE directs.movieid='$row[0]';";
+                                                                         $result2 = pg_query($dbconn, $query2);
+                                                                         if(!$result2){
+                                                                            die("KABOOM".pg_last_error());
+                                                                        } else {
+                                                                             if($row2 = pg_fetch_array($result2)){
+                                                                                 echo $row2[0];
+                                                                             }
+                                                                             $count = 1;
+                                                                             while($count < $GLOBALS['MAX_NAME'] and $row2 = pg_fetch_array($result2)) {
+                                                                                 echo ', '.$row2[0];
+                                                                                 $count++;
+                                                                             }
+                                                                             if ($row2 = pg_fetch_array($result2)){
+                                                                                 echo ', ...';
+                                                                             }
+                                                                         }
                                                                         ?></td>
                         </tr>
                         <tr>
