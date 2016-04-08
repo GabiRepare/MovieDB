@@ -23,7 +23,7 @@
 
 
     }else{
-    	header("Location: index.php");
+    	header("Location: http://www2.movieexchange.xyz:8080/index.php");
     }
 
     $query = "SELECT movieId, movieName, description, country, releaseDate, numberRating,
