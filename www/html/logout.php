@@ -1,4 +1,5 @@
 <?php
+session_start();
 session_destroy();
 if(isset($_SESSION['username'])){
   $msg="You are now logged out";
