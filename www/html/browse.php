@@ -60,33 +60,60 @@ if(isset($_SESSION['username'])){
                          while($row = pg_fetch_array($result)) { ?>
 
                     <tr><td><table class="result_entry">
-                        <tr class="first_entry_row">
-                            <td class="movie_img" rowspan="4"><img src="/images/<?php echo $row[0]?>.jpg"</td>
-                            <td class="movie_title_line">
-                                <p><?php echo $row[1]?></p>
-                                <p class="movie_year">(<?php echo $row[2]?>)</p>
-                            </td>
-                            <td class="rating_stars" rowspan="2">
-                                <fieldset class="rating">
-                                    <input type="radio" id="star5" name="rating1" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
-                                    <input type="radio" id="star4half" name="rating1" value="4 and a half" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
-                                    <input type="radio" id="star4" name="rating1" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
-                                    <input type="radio" id="star3half" name="rating1" value="3 and a half" /><label class="half" for="star3half" title="Meh - 3.5 stars"></label>
-                                    <input type="radio" id="star3" name="rating1" value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
-                                    <input type="radio" id="star2half" name="rating1" value="2 and a half" /><label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
-                                    <input type="radio" id="star2" name="rating1" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
-                                    <input type="radio" id="star1half" name="rating1" value="1 and a half" /><label class="half" for="star1half" title="Meh - 1.5 stars"></label>
-                                    <input type="radio" id="star1" name="rating1" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
-                                    <input type="radio" id="starhalf" name="rating1" value="half" /><label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
-                                </fieldset>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="movie_directors">Director(s): <?php
-                                                                        $query2 = "SELECT fName||' '||lName AS name FROM moviedb.director
-                                                                                   INNER JOIN moviedb.directs
-                                                                                   ON directs.directorid=director.directorid
-                                                                                   WHERE directs.movieid='$row[0]';";
+                        <a href"user.php" target="_blank title="Click for more info">
+                            <tr class="first_entry_row">
+                                <td class="movie_img" rowspan="4"><img src="/images/<?php echo $row[0]?>.jpg"</td>
+                                <td class="movie_title_line">
+                                    <p><?php echo $row[1]?></p>
+                                    <p class="movie_year">(<?php echo $row[2]?>)</p>
+                                </td>
+                                <td class="rating_stars" rowspan="2">
+                                    <fieldset class="rating">
+                                        <input type="radio" id="star5" name="rating1" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
+                                        <input type="radio" id="star4half" name="rating1" value="4 and a half" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
+                                        <input type="radio" id="star4" name="rating1" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
+                                        <input type="radio" id="star3half" name="rating1" value="3 and a half" /><label class="half" for="star3half" title="Meh - 3.5 stars"></label>
+                                        <input type="radio" id="star3" name="rating1" value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
+                                        <input type="radio" id="star2half" name="rating1" value="2 and a half" /><label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
+                                        <input type="radio" id="star2" name="rating1" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
+                                        <input type="radio" id="star1half" name="rating1" value="1 and a half" /><label class="half" for="star1half" title="Meh - 1.5 stars"></label>
+                                        <input type="radio" id="star1" name="rating1" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
+                                        <input type="radio" id="starhalf" name="rating1" value="half" /><label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
+                                    </fieldset>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="movie_directors">Director(s): <?php
+                                                                            $query2 = "SELECT fName||' '||lName AS name FROM moviedb.director
+                                                                                       INNER JOIN moviedb.directs
+                                                                                       ON directs.directorid=director.directorid
+                                                                                       WHERE directs.movieid='$row[0]';";
+                                                                             $result2 = pg_query($dbconn, $query2);
+                                                                             if(!$result2){
+                                                                                die("KABOOM".pg_last_error());
+                                                                            } else {
+                                                                                 if($row2 = pg_fetch_array($result2)){
+                                                                                     echo $row2[0];
+                                                                                 }
+                                                                                 $count = 1;
+                                                                                 while($count < $GLOBALS['MAX_NAME'] and $row2 = pg_fetch_array($result2)) {
+                                                                                     echo ', '.$row2[0];
+                                                                                     $count++;
+                                                                                 }
+                                                                                 if ($row2 = pg_fetch_array($result2)){
+                                                                                     echo ', ...';
+                                                                                 }
+                                                                             }
+                                                                            ?></td>
+                            </tr>
+                            <tr>
+                                <td class="movie_actors">Actor(s): <?php
+                                                                        $query2 = "SELECT DISTINCT actor.fName||' '||actor.lName AS name FROM moviedb.actor
+                                                                                   INNER JOIN moviedb.role
+                                                                                   ON role.actorId=actor.actorId
+                                                                                   INNER JOIN moviedb.RolePlaysIn
+                                                                                   ON RolePlaysIn.roleId=role.roleId
+                                                                                   WHERE RolePlaysIn.movieId='$row[0]';";
                                                                          $result2 = pg_query($dbconn, $query2);
                                                                          if(!$result2){
                                                                             die("KABOOM".pg_last_error());
@@ -103,16 +130,15 @@ if(isset($_SESSION['username'])){
                                                                                  echo ', ...';
                                                                              }
                                                                          }
-                                                                        ?></td>
-                        </tr>
-                        <tr>
-                            <td class="movie_actors">Actor(s): <?php
-                                                                    $query2 = "SELECT DISTINCT actor.fName||' '||actor.lName AS name FROM moviedb.actor
-                                                                               INNER JOIN moviedb.role
-                                                                               ON role.actorId=actor.actorId
-                                                                               INNER JOIN moviedb.RolePlaysIn
-                                                                               ON RolePlaysIn.roleId=role.roleId
-                                                                               WHERE RolePlaysIn.movieId='$row[0]';";
+                                                                    ?></td>
+                                <td class="movie_avg"><?php echo $row[4]?>/5</td>
+                            </tr>
+                            <tr>
+                                <td class="movie_topics">Topics: <?php
+                                                                    $query2 = "SELECT topic.description FROM moviedb.topic
+                                                                               INNER JOIN moviedb.MovieTopic
+                                                                               ON MovieTopic.topicId=topic.topicId
+                                                                               WHERE MovieTopic.movieId='$row[0]';";
                                                                      $result2 = pg_query($dbconn, $query2);
                                                                      if(!$result2){
                                                                         die("KABOOM".pg_last_error());
@@ -129,34 +155,10 @@ if(isset($_SESSION['username'])){
                                                                              echo ', ...';
                                                                          }
                                                                      }
-                                                                ?></td>
-                            <td class="movie_avg"><?php echo $row[4]?>/5</td>
-                        </tr>
-                        <tr>
-                            <td class="movie_topics">Topics: <?php
-                                                                $query2 = "SELECT topic.description FROM moviedb.topic
-                                                                           INNER JOIN moviedb.MovieTopic
-                                                                           ON MovieTopic.topicId=topic.topicId
-                                                                           WHERE MovieTopic.movieId='$row[0]';";
-                                                                 $result2 = pg_query($dbconn, $query2);
-                                                                 if(!$result2){
-                                                                    die("KABOOM".pg_last_error());
-                                                                } else {
-                                                                     if($row2 = pg_fetch_array($result2)){
-                                                                         echo $row2[0];
-                                                                     }
-                                                                     $count = 1;
-                                                                     while($count < $GLOBALS['MAX_NAME'] and $row2 = pg_fetch_array($result2)) {
-                                                                         echo ', '.$row2[0];
-                                                                         $count++;
-                                                                     }
-                                                                     if ($row2 = pg_fetch_array($result2)){
-                                                                         echo ', ...';
-                                                                     }
-                                                                 }
-                                                             ?></td>
-                            <td class="movie_nrating">(<?php echo $row[3]?> ratings)</td>
-                        </tr>
+                                                                 ?></td>
+                                <td class="movie_nrating">(<?php echo $row[3]?> ratings)</td>
+                            </tr>
+                        </a>
                     </table></td></tr>
                     <?php }?>
                 </table>
