@@ -106,7 +106,30 @@ if(isset($_SESSION['username'])){
                                                                         ?></td>
                         </tr>
                         <tr>
-                            <td class="movie_actors">Actor(s): Actor1, Actor2, Actor3, ...</td>
+                            <td class="movie_actors">Actor(s): <?php
+                                                                    $query2 = "SELECT fName||' '||lName AS name FROM moviedb.actor
+                                                                               INNER JOIN moviedb.role
+                                                                               ON role.actorId=actor.actorId
+                                                                               INNER JOIN moviedb.RolePlaysIn
+                                                                               ON RolePlaysIn.roleId=role.roleId
+                                                                               WHERE RolePlaysIn.movieId='$row[0]';";
+                                                                     $result2 = pg_query($dbconn, $query2);
+                                                                     if(!$result2){
+                                                                        die("KABOOM".pg_last_error());
+                                                                    } else {
+                                                                         if($row2 = pg_fetch_array($result2)){
+                                                                             echo $row2[0];
+                                                                         }
+                                                                         $count = 1;
+                                                                         while($count < $GLOBALS['MAX_NAME'] and $row2 = pg_fetch_array($result2)) {
+                                                                             echo ', '.$row2[0];
+                                                                             $count++;
+                                                                         }
+                                                                         if ($row2 = pg_fetch_array($result2)){
+                                                                             echo ', ...';
+                                                                         }
+                                                                     }
+                                                                ?></td>
                             <td class="movie_avg"><?php echo $row[4]?>/5</td>
                         </tr>
                         <tr>
