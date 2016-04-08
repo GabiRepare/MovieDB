@@ -47,12 +47,21 @@ if(isset($_SESSION['username'])){
                     </div>
                 </div>
                 <table id="result_table">
+                    <?php
+                        $query = "SELECT movieId, movieName, EXTRACT(YEAR FROM releaseDate) AS year, numberRating,
+                         sumRating/numberRating AS avg FROM moviedb.movie ORDER BY avg LIMIT 20";
+                         $result = pg_query($dbconn, $query);
+                         if(!$result){
+                         	die("KABOOM".pg_last_error());
+                         }
+                         while($row = pg_fetch_array($result)) { ?>
+
                     <tr><td><table class="result_entry">
                         <tr class="first_entry_row">
-                            <td class="movie_img" rowspan="4"><img src="http://ia.media-imdb.com/images/M/MV5BOTAzODEzNDAzMl5BMl5BanBnXkFtZTgwMDU1MTgzNzE@._V1_UX182_CR0,0,182,268_AL_.jpg"</td>
+                            <td class="movie_img" rowspan="4"><img src="<?php echo $row[0]?>.jpg"</td>
                             <td class="movie_title_line">
-                                <p>Star Wars Episode VII - The Force Awakens</p>
-                                <p class="movie_year">(2015)</p>
+                                <p><?php $row[1]?></p>
+                                <p class="movie_year">(<?php echo $row[2]?>)</p>
                             </td>
                             <td class="rating_stars" rowspan="2">
                                 <fieldset class="rating">
@@ -74,13 +83,14 @@ if(isset($_SESSION['username'])){
                         </tr>
                         <tr>
                             <td class="movie_actors">Actor(s): Actor1, Actor2, Actor3, ...</td>
-                            <td class="movie_avg">3.4/5</td>
+                            <td class="movie_avg"><?php $row[4]?>/5</td>
                         </tr>
                         <tr>
                             <td class="movie_topics">Topics: topic1, topic2, topic3, ...</td>
-                            <td class="movie_nrating">(2342 ratings)</td>
+                            <td class="movie_nrating">(<?php $row[3]?> ratings)</td>
                         </tr>
                     </table></td></tr>
+                    <?php }?>
                     <tr><td><table class="result_entry">
                         <tr class="first_entry_row">
                             <td class="movie_img" rowspan="4"><img src="http://ia.media-imdb.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_UX182_CR0,0,182,268_AL_.jpg"</td>
