@@ -87,7 +87,7 @@ if(isset($_SESSION['username'])){
                                                                         $query2 = "SELECT fName||' '||lName AS name FROM moviedb.director
                                                                                    INNER JOIN moviedb.directs
                                                                                    ON directs.directorid=director.directorid
-                                                                                   WHERE directs.movieid=$row[0];";
+                                                                                   WHERE directs.movieid='$row[0]'';";
                                                                          $result2 = pg_query($dbconn, $query2);
                                                                          if(!$result2){
                                                                             die("KABOOM".pg_last_error());
