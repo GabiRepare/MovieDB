@@ -46,7 +46,7 @@ movieName varchar(100),
 releaseDate DATE,
 description TEXT,
 country varchar(40),
-sumRating integer DEFAULT 0,
+sumRating Decimal(9,1) DEFAULT 0,
 numberRating integer DEFAULT 0,
 CONSTRAINT MoviePKey PRIMARY KEY (movieId)
 );
@@ -55,7 +55,7 @@ CONSTRAINT MoviePKey PRIMARY KEY (movieId)
 CREATE TABLE Rates(
 userId varchar(20),
 movieId varchar(20),
-watchDate DATE,
+RateDate DATE,
 rating integer,
 CONSTRAINT RatesPKey PRIMARY KEY (userId, movieId),
 CONSTRAINT RatesRating CHECK (rating >=0 AND rating <=5),
@@ -67,7 +67,7 @@ CREATE OR REPLACE FUNCTION movie_rating_update() RETURNS TRIGGER AS $$
     DECLARE
         delta_movieId       varchar(20);
         delta_numberRating  integer;
-        delta_sumRating     integer;
+        delta_sumRating     Decimal(2,1);
     BEGIN
         IF (TG_OP = 'DELETE') THEN
             delta_movieId = old.movieId;
