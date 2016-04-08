@@ -1,7 +1,7 @@
 <?php
 //Constants
-$GLOBALS['MAX_NAME']=5;
-$GLOBALS['NUM_RESULT_PAGE']=20;
+// $GLOBALS['MAX_NAME']=5;
+// $GLOBALS['NUM_RESULT_PAGE']=20;
 
 session_start();
 
