@@ -107,7 +107,7 @@ if(isset($_SESSION['username'])){
                         </tr>
                         <tr>
                             <td class="movie_actors">Actor(s): <?php
-                                                                    $query2 = "SELECT fName||' '||lName AS name FROM moviedb.actor
+                                                                    $query2 = "SELECT actor.fName||' '||actor.lName AS name FROM moviedb.actor
                                                                                INNER JOIN moviedb.role
                                                                                ON role.actorId=actor.actorId
                                                                                INNER JOIN moviedb.RolePlaysIn
