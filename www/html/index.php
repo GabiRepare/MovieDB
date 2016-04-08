@@ -3,7 +3,8 @@ session_start();
 
 //Skip login page if user already logged in
 if(isset($_SESSION['username'])){
-    header("Location: browse.php");
+    header("Location:browse.php");
+    die("Already logged in");
 }
 
 if(isset($_POST['username'])) {
@@ -35,8 +36,8 @@ $result=pg_execute($dbconn,"ps",array($usname, $paswd));
  $row_count=pg_num_rows($result);
  if($row_count>0){
 	 $_SESSION['username']=$usname;
-	 header("Location: browse.php");
-	 die("Already logged in");
+	 header("Location:browse.php");
+	 die("Succesfully logged In");
  }else{
 	 echo "Wrong login or password, please try again.";
  }

@@ -6,7 +6,7 @@
     <body>
 <?php
     if (!isset($_GET['movieid'])){
-        header("Location: browse.php");
+        header("Location:browse.php");
         die("No movie argument");
     }
 
@@ -24,7 +24,7 @@
 
 
     }else{
-    	header("Location: index.php");
+    	header("Location:index.php");
         die("Not logged in");
     }
 
