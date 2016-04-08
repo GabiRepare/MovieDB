@@ -53,7 +53,7 @@
     $result4 = pg_query($dbconn, $query4);
 
     if(!$result){
-       die("Error in movie query".pg_last_error());
+       die("Error in movie query".$query1.pg_last_error());
    } elseif (!$result2) {
        die("Error in movie director query".pg_last_error());
    } elseif (!$result3) {
