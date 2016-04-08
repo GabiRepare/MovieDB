@@ -31,5 +31,16 @@ if(!$result){
     die("Error in SQL entry: ".pg_last_error());
 }
 
-
 ?>
+<!-- Test -->
+<!Doctype html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+        <title>Browse MovieExchange</title>
+        <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js'>
+        </script>
+    </head>
+    <body>
+    </body>
+</html>
