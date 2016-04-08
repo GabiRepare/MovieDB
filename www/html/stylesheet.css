@@ -64,7 +64,7 @@ td {
     margin-right: 10px;
     margin-left: 10px;
     margin-bottom: 10px;
-    height: 100%;
+    overflow: hidden;
     width: 70em;
 }
 
