@@ -24,7 +24,9 @@ else {
 }
 
 $date = date('Y-m-d');
-$query="INSERT INTO moviedb.Rates(userid, movieId, rateDate, rating) VALUES ('".$_SESSION["username"]."', '".$_POST['movieid']."', '".$date."', '".$_POST['rating']."');";
+$query="INSERT INTO moviedb.Rates(userid, movieId, rateDate, rating)
+        VALUES ('".$_SESSION["username"]."', '".$_POST['movieid']."', '".$date."', '".$_POST['rating']."')
+        ON CONFLICT UPDATE;";
 $result=pg_query($dbconn, $query);
 
 if(!$result){
