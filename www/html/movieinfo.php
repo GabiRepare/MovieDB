@@ -40,7 +40,9 @@
                ON directs.directorid=director.directorid
                WHERE directs.movieid='".$_GET['movieid']."';";
     $result2 = pg_query($dbconn, $query2);
-    $query3 = "SELECT DISTINCT actor.fName||' '||actor.lName AS name FROM moviedb.actor
+    $query3 = "SELECT actor.fName||' '||actor.lName AS actor_name,
+                      role.fname||' '||role.lname AS role_name
+               FROM moviedb.actor
                INNER JOIN moviedb.role
                ON role.actorId=actor.actorId
                INNER JOIN moviedb.RolePlaysIn
@@ -52,6 +54,11 @@
                ON MovieTopic.topicId=topic.topicId
                WHERE MovieTopic.movieId='".$_GET['movieid']."';";
     $result4 = pg_query($dbconn, $query4);
+    $query5 = "SELECT Studio.name FROM moviedb.Studio
+               INNER JOIN moviedb.Sponsors
+               ON Sponsors.studioId=Studio.studioId
+               WHERE Sponsors.movieId='".$_GET['movieid']."';";
+    $result5 = pg_query($dbconn, $query5);
 
     if(!$result){
        die("Error in movie query".pg_last_error());
@@ -83,7 +90,7 @@
             <tr><td><?php echo $row2[0]?></td></tr><?php } ?>
             <tr><td rowspan="<?php echo max(pg_num_rows($result3),1)?>" valign="top"><strong>Actors:</strong></td>
                 <td><?php if ($row3 = pg_fetch_array($result3)){
-                                echo $row3[0];
+                                echo $row3[0].' ('.$row3[1].')';
                             } ?></dt></tr>
             <?php while ($row3 = pg_fetch_array($result3)){?>
             <tr><td><?php echo $row3[0]?></td></tr><?php } ?>
@@ -93,6 +100,12 @@
                             } ?></dt></tr>
             <?php while ($row4 = pg_fetch_array($result4)){?>
             <tr><td><?php echo $row4[0]?></td></tr><?php } ?>
+            <tr><td rowspan="<?php echo max(pg_num_rows($result5),1)?>" valign="top"><strong>Studio(s):</strong></td>
+                <td><?php if ($row5 = pg_fetch_array($result5)){
+                                echo $row5[0];
+                            } ?></dt></tr>
+            <?php while ($row5 = pg_fetch_array($result5)){?>
+            <tr><td><?php echo $row5[0]?></td></tr><?php } ?>
         </table>
 <?php }
  ?>
