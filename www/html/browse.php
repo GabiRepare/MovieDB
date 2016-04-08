@@ -60,7 +60,7 @@ if(isset($_SESSION['username'])){
                         <tr class="first_entry_row">
                             <td class="movie_img" rowspan="4"><img src="<?php echo $row[0]?>.jpg"</td>
                             <td class="movie_title_line">
-                                <p><?php $row[1]?></p>
+                                <p><?php echo $row[1]?></p>
                                 <p class="movie_year">(<?php echo $row[2]?>)</p>
                             </td>
                             <td class="rating_stars" rowspan="2">
@@ -83,11 +83,11 @@ if(isset($_SESSION['username'])){
                         </tr>
                         <tr>
                             <td class="movie_actors">Actor(s): Actor1, Actor2, Actor3, ...</td>
-                            <td class="movie_avg"><?php $row[4]?>/5</td>
+                            <td class="movie_avg"><?php echo $row[4]?>/5</td>
                         </tr>
                         <tr>
                             <td class="movie_topics">Topics: topic1, topic2, topic3, ...</td>
-                            <td class="movie_nrating">(<?php $row[3]?> ratings)</td>
+                            <td class="movie_nrating">(<?php echo $row[3]?> ratings)</td>
                         </tr>
                     </table></td></tr>
                     <?php }?>
