@@ -84,11 +84,11 @@ if(isset($_SESSION['username'])){
                         </tr>
                         <tr>
                             <td class="movie_directors">Director(s): <?php
-                                                                        // $query2 = "SELECT fName||' '||lName AS name FROM moviedb.director WHERE moviedb.director.directorId = $row[0]";
-                                                                        //  $result2 = pg_query($dbconn, $query2);
-                                                                        //  if(!$result2){
-                                                                        //     die("KABOOM".pg_last_error());
-                                                                        //  }
+                                                                        $query2 = "SELECT fName||' '||lName AS name FROM moviedb.director WHERE moviedb.director.directorId = $row[0]";
+                                                                         $result2 = pg_query($dbconn, $query2);
+                                                                         if(!$result2){
+                                                                            die("KABOOM".pg_last_error());
+                                                                         }
                                                                         //  if($row2 = pg_fetch_array($result2)){
                                                                         //      echo $row2[0];
                                                                         //  }
@@ -99,7 +99,7 @@ if(isset($_SESSION['username'])){
                                                                         //  }
                                                                         //  if ($row2 = pg_fetch_array($result2)){
                                                                         //      echo ', ...';
-                                                                        //  }                                                                             
+                                                                        //  }
                                                                         ?></td>
                         </tr>
                         <tr>
