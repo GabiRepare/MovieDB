@@ -94,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     <input onchange='this.form.submit();' type="radio" id="star1half" name="rating" value="1 and a half" /><label class="half" for="star1half" title="Meh - 1.5 stars"></label>
                                     <input onchange='this.form.submit();' type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
                                     <input onchange='this.form.submit();' type="radio" id="starhalf" name="rating" value="half" /><label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
-                                    <input type="hidden" name="movieId" value="<?php echo $row[0];?>">
+                                    <input type="hidden" name="movieid" value="<?php echo $row[0];?>">
                                 </fieldset>
                             </form>
                             </td>
