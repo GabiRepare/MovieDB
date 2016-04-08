@@ -6,7 +6,7 @@
     <body>
 <?php
     if (!isset($_GET['movieid'])){
-        header("Location:browse.php");
+        header("Location:http://www2.moviexchange.xyz:8080/browse.php");
         die("No movie argument");
     }
 
