@@ -31,8 +31,8 @@
     }
 
     $query = "SELECT movieId, movieName, description, country, releaseDate, numberRating,
-            ROUND(1.0*sumRating/numberRating,3) AS avg FROM moviedb.movie ORDER BY avg DESC
-            LIMIT ".(string)$GLOBALS['NUM_RESULT_PAGE'].";";
+            ROUND(1.0*sumRating/numberRating,3) AS avg FROM moviedb.movie
+            WHERE movie.movieId='".$_GET['movieid']."';";
     $result = pg_query($dbconn, $query);
     $query2 = "SELECT fName||' '||lName AS name FROM moviedb.director
                INNER JOIN moviedb.directs
