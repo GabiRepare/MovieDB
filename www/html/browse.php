@@ -62,7 +62,7 @@ if(isset($_SESSION['username'])){
 
                     <tr><td><table class="result_entry">
                         <tr class="first_entry_row">
-                            <td class="movie_img" rowspan="4"><a href="movieinfo.php/?movieid=<?php echo $row[0];?>" target="_blank" title="Click for more info">
+                            <td class="movie_img" rowspan="4"><a href="movieinfo.php?movieid=<?php echo $row[0];?>" target="_blank" title="Click for more info">
                                 <img src="/images/<?php echo $row[0]?>.jpg">
                             </a></td>
                             <td class="movie_title_line">
