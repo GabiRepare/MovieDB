@@ -75,19 +75,19 @@
                 <td><?php echo $row[6]?>/5 ( <?php echo $row[5]?> ratings)</td></tr>
             <tr><td><strong>Description:</strong></td>
                 <td><?php echo $row[2]?></td></tr>
-            <tr><td rowspan="<?php echo max(pg_num_rows($result2),1)?>"><strong>Director(s):</strong></td>
+            <tr><td rowspan="<?php echo max(pg_num_rows($result2),1)?>" valign="top"><strong>Director(s):</strong></td>
                 <td><?php if ($row2 = pg_fetch_array($result2)){
                                 echo $row2[0];
                             } ?></dt></tr>
             <?php while ($row2 = pg_fetch_array($result2)){?>
             <tr><td><?php echo $row2[0]?></td></tr><?php } ?>
-            <tr><td rowspan="<?php echo max(pg_num_rows($result3),1)?>"><strong>Actors:</strong></td>
+            <tr><td rowspan="<?php echo max(pg_num_rows($result3),1)?>" valign="top"><strong>Actors:</strong></td>
                 <td><?php if ($row3 = pg_fetch_array($result3)){
                                 echo $row3[0];
                             } ?></dt></tr>
             <?php while ($row3 = pg_fetch_array($result3)){?>
             <tr><td><?php echo $row3[0]?></td></tr><?php } ?>
-            <tr><td rowspan="<?php echo max(pg_num_rows($result4),1)?>"><strong>Topic(s):</strong></td>
+            <tr><td rowspan="<?php echo max(pg_num_rows($result4),1)?>" valign="top"><strong>Topic(s):</strong></td>
                 <td><?php if ($row4 = pg_fetch_array($result4)){
                                 echo $row4[0];
                             } ?></dt></tr>
