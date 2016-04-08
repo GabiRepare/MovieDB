@@ -37,19 +37,19 @@
     $query2 = "SELECT fName||' '||lName AS name FROM moviedb.director
                INNER JOIN moviedb.directs
                ON directs.directorid=director.directorid
-               WHERE directs.movieid='$row[0]';";
+               WHERE directs.movieid='".$_GET['movieid']."';";
     $result2 = pg_query($dbconn, $query2);
     $query3 = "SELECT DISTINCT actor.fName||' '||actor.lName AS name FROM moviedb.actor
                INNER JOIN moviedb.role
                ON role.actorId=actor.actorId
                INNER JOIN moviedb.RolePlaysIn
                ON RolePlaysIn.roleId=role.roleId
-               WHERE RolePlaysIn.movieId='$row[0]';";
+               WHERE RolePlaysIn.movieId='".$_GET['movieid']."';";
     $result3 = pg_query($dbconn, $query3);
     $query4 = "SELECT topic.description FROM moviedb.topic
                INNER JOIN moviedb.MovieTopic
                ON MovieTopic.topicId=topic.topicId
-               WHERE MovieTopic.movieId='$row[0]';";
+               WHERE MovieTopic.movieId='".$_GET['movieid']."';";
     $result4 = pg_query($dbconn, $query4);
 
     if(!$result){
