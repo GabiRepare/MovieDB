@@ -80,7 +80,7 @@
                 <td><?php echo $row[4]?></td></tr>
             <tr><td><strong>Average Rating:</strong></td>
                 <td><?php echo $row[6]?>/5 ( <?php echo $row[5]?> ratings)</td></tr>
-            <tr><td><strong>Description:</strong></td>
+            <tr><td valign="top"><strong>Description:</strong></td>
                 <td><?php echo $row[2]?></td></tr>
             <tr><td rowspan="<?php echo max(pg_num_rows($result2),1)?>" valign="top"><strong>Director(s):</strong></td>
                 <td><?php if ($row2 = pg_fetch_array($result2)){
