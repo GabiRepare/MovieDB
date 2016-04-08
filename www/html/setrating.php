@@ -37,10 +37,10 @@ if(!$result){
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
-        <title>Browse MovieExchange</title>
-        <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js'>
+        <title>Test</title>
         </script>
     </head>
     <body>
+        Test
     </body>
 </html>

@@ -70,7 +70,7 @@ CREATE OR REPLACE FUNCTION movie_rating_update() RETURNS TRIGGER AS $$
         delta_sumRating     Decimal(2,1);
     BEGIN
         IF (TG_OP = 'DELETE') THEN
-            delta_movieId = old.movieId;
+            delta_movieId = OLD.movieId;
             delta_numberRating = -1;
             delta_sumRating = -1*OLD.rating;
         ELSIF (TG_OP = 'UPDATE') THEN
@@ -82,7 +82,7 @@ CREATE OR REPLACE FUNCTION movie_rating_update() RETURNS TRIGGER AS $$
             delta_numberRating = 1;
             delta_sumRating = NEW.rating;
         END IF;
-        UPDATE Movie
+        UPDATE moviedb.Movie
             SET numberRating = numberRating + delta_numberRating,
                 sumRating = sumRating + delta_sumRating
                 WHERE movieId = delta_movieId;
