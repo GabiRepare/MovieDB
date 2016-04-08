@@ -1,7 +1,7 @@
 <?php
 //Constants
-define("MAX_NAME",5);
-define("NUM_RESULT_PAGE",20);
+$GLOBALS['MAX_NAME']=5;
+$GLOBALS['NUM_RESULT_PAGE']=20;
 
 session_start();
 
@@ -21,7 +21,7 @@ if(isset($_SESSION['username'])){
 }else{
 	header("Location: index.php");
 }
-echo "
+?>
 
 <!Doctype html>
 <html>
@@ -34,7 +34,7 @@ echo "
             <h1>MovieExchange</h1>
             <a href="logout.php">Logout</a>
             <a href="settings.php">Account Settings</a>
-            <p>Logged as "; echo $usname; echo "</p>
+            <p>Logged as <?php echo $usname ?></p>
         </div>
         <div id="top_pane">
             <a href="" class="button" id="browse_btn">Rate Movies</a>
@@ -50,23 +50,22 @@ echo "
                         <a class="button" href="">Search</a>
                     </div>
                 </div>
-                <table id="result_table">";
-
+                <table id="result_table">
+                    <?php
                         $query = "SELECT movieId, movieName, EXTRACT(YEAR FROM releaseDate) AS year, numberRating,
-                         ROUND(1.0*sumRating/numberRating,1) AS avg FROM moviedb.movie ORDER BY avg DESC LIMIT NUM_RESULT_PAGE";
+                         ROUND(1.0*sumRating/numberRating,1) AS avg FROM moviedb.movie ORDER BY avg DESC LIMIT $GLOBALS['NUM_RESULT_PAGE']";
                          $result = pg_query($dbconn, $query);
                          if(!$result){
                          	die("KABOOM".pg_last_error());
                          }
-                         while($row = pg_fetch_array($result)) {
-                             echo "
+                         while($row = pg_fetch_array($result)) { ?>
 
                     <tr><td><table class="result_entry">
                         <tr class="first_entry_row">
-                            <td class="movie_img" rowspan="4"><img src="""; echo $row[0]; echo "".jpg"</td>
+                            <td class="movie_img" rowspan="4"><img src="<?php echo $row[0]?>.jpg"</td>
                             <td class="movie_title_line">
-                                <p>"; echo $row[1]; echo "</p>
-                                <p class="movie_year">("; echo $row[2]; echo ")</p>
+                                <p><?php echo $row[1]?></p>
+                                <p class="movie_year">(<?php echo $row[2]?>)</p>
                             </td>
                             <td class="rating_stars" rowspan="2">
                                 <fieldset class="rating">
@@ -84,7 +83,7 @@ echo "
                             </td>
                         </tr>
                         <tr>
-                            <td class="movie_directors">Director(s): ";
+                            <td class="movie_directors">Director(s): <?php
                                                                         $query2 = "SELECT fName||' '||lName AS name FROM moviedb.director
                                                                                    INNER JOIN moviedb.directs
                                                                                    ON directs.directorid=director.directorid
@@ -97,7 +96,7 @@ echo "
                                                                                  echo $row2[0];
                                                                              }
                                                                              $count = 1;
-                                                                            //  while($count < MAX_NAME and $row2 = pg_fetch_array($result2)) {
+                                                                            //  while($count < $GLOBALS['MAX_NAME'] and $row2 = pg_fetch_array($result2)) {
                                                                             //      echo ', ':$row2[0];
                                                                             //      $count++;
                                                                             //  }
@@ -105,21 +104,21 @@ echo "
                                                                                  echo ', ...';
                                                                              }
                                                                          }
-                                                                        echo "</td>
+                                                                        ?></td>
                         </tr>
                         <tr>
                             <td class="movie_actors">Actor(s): Actor1, Actor2, Actor3, ...</td>
-                            <td class="movie_avg">"; echo $row[4]; echo "/5</td>
+                            <td class="movie_avg"><?php echo $row[4]?>/5</td>
                         </tr>
                         <tr>
                             <td class="movie_topics">Topics: topic1, topic2, topic3, ...</td>
-                            <td class="movie_nrating">("; echo $row[3]; echo " ratings)</td>
+                            <td class="movie_nrating">(<?php echo $row[3]?> ratings)</td>
                         </tr>
                     </table></td></tr>
-                    "; } echo "
+                    <?php }?>
                     <tr><td><table class="result_entry">
                         <tr class="first_entry_row">
-                            <td class="movie_img" rowspan="4"><img src="http:ia.media-imdb.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_UX182_CR0,0,182,268_AL_.jpg"</td>
+                            <td class="movie_img" rowspan="4"><img src="http://ia.media-imdb.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_UX182_CR0,0,182,268_AL_.jpg"</td>
                             <td class="movie_title_line">
                                 <p>Inception</p>
                                 <p class="movie_year">(2010)</p>
@@ -156,4 +155,3 @@ echo "
         </div>
     </body>
 </html>
-"; ?>
