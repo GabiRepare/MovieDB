@@ -65,7 +65,7 @@
 
     while($row = pg_fetch_array($result)) {?>
         <h1><?php echo $row[1]?></h1>
-        <h2>Actor number: <?php echo max(pg_num_rows($result3,1))?></h2>
+        <h2>Actor number: <?php echo max(pg_num_rows($result3),1)?></h2>
         <img src="/images/<?php echo $row[0]?>.jpg">
         <table>
             <tr><td><strong>Country:</strong></td>
