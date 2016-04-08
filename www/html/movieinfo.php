@@ -26,7 +26,7 @@
 
 
     }else{
-    	header("Location:user.php");
+    	header("Location:index.php");
         die("Not logged in");
     }
 
