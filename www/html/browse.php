@@ -1,4 +1,8 @@
 <?php
+//Constants
+$MAX_NAME=5;
+$NUM_RESULT_PAGE=20;
+
 session_start();
 
 if(isset($_SESSION['username'])){
@@ -49,7 +53,7 @@ if(isset($_SESSION['username'])){
                 <table id="result_table">
                     <?php
                         $query = "SELECT movieId, movieName, EXTRACT(YEAR FROM releaseDate) AS year, numberRating,
-                         ROUND(1.0*sumRating/numberRating,1) AS avg FROM moviedb.movie ORDER BY avg LIMIT 20";
+                         ROUND(1.0*sumRating/numberRating,1) AS avg FROM moviedb.movie ORDER BY avg DESC LIMIT $NUM_RESULT_PAGE";
                          $result = pg_query($dbconn, $query);
                          if(!$result){
                          	die("KABOOM".pg_last_error());
@@ -79,7 +83,24 @@ if(isset($_SESSION['username'])){
                             </td>
                         </tr>
                         <tr>
-                            <td class="movie_directors">Director(s): Dude1, Dude2</td>
+                            <td class="movie_directors">Director(s): <?php
+                                                                        $query2 = "SELECT fName||' '||lName AS name FROM moviedb.director WHERE moviedb.director.directorId = $row[0]";
+                                                                         $result2 = pg_query($dbconn, $query2);
+                                                                         if(!$result2){
+                                                                            die("KABOOM".pg_last_error());
+                                                                         }
+                                                                         if($row2 = pg_fetch_array($result2)){
+                                                                             echo $row2[0];
+                                                                         }
+                                                                         $count = 1;
+                                                                         while($count < $MAX_NAME and $row2 = pg_fetch_array($result2)) {
+                                                                             echo ', ':$row2[0];
+                                                                             $count += 1;
+                                                                         }
+                                                                         if ($row2 = pg_fetch_array($result2)){
+                                                                             echo ', ...';
+                                                                         }                                                                             
+                                                                        ?></td>
                         </tr>
                         <tr>
                             <td class="movie_actors">Actor(s): Actor1, Actor2, Actor3, ...</td>
