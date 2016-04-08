@@ -81,6 +81,18 @@
                             } ?></dt></tr>
             <?php while ($row2 = pg_fetch_array($result2)){?>
             <tr><td><?php echo $row2[0]?></td></tr><?php } ?>
+            <tr><td rowspan="<?php echo max(pg_num_rows($result3,1))?>"><strong>Actors:</strong></td>
+                <td><?php if ($row3 = pg_fetch_array($result3)){
+                                echo $row3[0];
+                            } ?></dt></tr>
+            <?php while ($row3 = pg_fetch_array($result3)){?>
+            <tr><td><?php echo $row3[0]?></td></tr><?php } ?>
+            <tr><td rowspan="<?php echo max(pg_num_rows($result4,1))?>"><strong>Topic(s):</strong></td>
+                <td><?php if ($row4 = pg_fetch_array($result4)){
+                                echo $row4[0];
+                            } ?></dt></tr>
+            <?php while ($row4 = pg_fetch_array($result4)){?>
+            <tr><td><?php echo $row4[0]?></td></tr><?php } ?>
         </table>
 <?php }
  ?>
