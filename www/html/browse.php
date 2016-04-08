@@ -84,22 +84,25 @@ if(isset($_SESSION['username'])){
                         </tr>
                         <tr>
                             <td class="movie_directors">Director(s): <?php
-                                                                        $query2 = "SELECT fName||' '||lName AS name FROM moviedb.director WHERE director.movieId = $row[0]";
+                                                                        $query2 = "SELECT fName||' '||lName AS name FROM moviedb.director
+                                                                                   INNER JOIN moviedb.directs
+                                                                                   ON directs.directorid=director.directorid
+                                                                                   WHERE directs.movieid=$row[0];";
                                                                          $result2 = pg_query($dbconn, $query2);
                                                                          if(!$result2){
                                                                             die("KABOOM".pg_last_error());
                                                                          }
-                                                                        //  if($row2 = pg_fetch_array($result2)){
-                                                                        //      echo $row2[0];
-                                                                        //  }
-                                                                        //  $count = 1;
-                                                                        //  while($count < $MAX_NAME and $row2 = pg_fetch_array($result2)) {
-                                                                        //      echo ', ':$row2[0];
-                                                                        //      $count += 1;
-                                                                        //  }
-                                                                        //  if ($row2 = pg_fetch_array($result2)){
-                                                                        //      echo ', ...';
-                                                                        //  }
+                                                                         if($row2 = pg_fetch_array($result2)){
+                                                                             echo $row2[0];
+                                                                         }
+                                                                         $count = 1;
+                                                                         while($count < $MAX_NAME and $row2 = pg_fetch_array($result2)) {
+                                                                             echo ', ':$row2[0];
+                                                                             $count += 1;
+                                                                         }
+                                                                         if ($row2 = pg_fetch_array($result2)){
+                                                                             echo ', ...';
+                                                                         }
                                                                         ?></td>
                         </tr>
                         <tr>
