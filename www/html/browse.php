@@ -52,7 +52,7 @@ if(isset($_SESSION['username'])){
                 </div>
                 <table id="result_table">
                     <?php
-                        $query = "SELECT movieId, movieName, EXTRACT(YEAR FROM releaseDate) AS year, numberRating, ROUND(1.0*sumRating/numberRating,1) AS avg FROM moviedb.movie ORDER BY avg DESC LIMIT".(string)$GLOBALS['NUM_RESULT_PAGE'].";";
+                        $query = "SELECT movieId, movieName, EXTRACT(YEAR FROM releaseDate) AS year, numberRating, ROUND(1.0*sumRating/numberRating,1) AS avg FROM moviedb.movie ORDER BY avg DESC LIMIT ".(string)$GLOBALS['NUM_RESULT_PAGE'].";";
                          $result = pg_query($dbconn, $query);
                          if(!$result){
                          	die("KABOOM".pg_last_error());
