@@ -60,7 +60,7 @@ if(isset($_SESSION['username'])){
                          while($row = pg_fetch_array($result)) { ?>
 
                     <tr><td><table class="result_entry">
-                        <a href"user.php" target="_blank title="Click for more info">
+                        <a href="user.php" target="_blank" title="Click for more info">
                             <tr class="first_entry_row">
                                 <td class="movie_img" rowspan="4"><img src="/images/<?php echo $row[0]?>.jpg"</td>
                                 <td class="movie_title_line">
