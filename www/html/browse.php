@@ -133,7 +133,28 @@ if(isset($_SESSION['username'])){
                             <td class="movie_avg"><?php echo $row[4]?>/5</td>
                         </tr>
                         <tr>
-                            <td class="movie_topics">Topics: topic1, topic2, topic3, ...</td>
+                            <td class="movie_topics">Topics: <?php
+                                                                $query2 = "SELECT topic.description FROM moviedb.topic
+                                                                           INNER JOIN moviedb.MovieTopic
+                                                                           ON MovieTopic.topicId=topic.topicId
+                                                                           WHERE MovieTopic.movieId='$row[0]';";
+                                                                 $result2 = pg_query($dbconn, $query2);
+                                                                 if(!$result2){
+                                                                    die("KABOOM".pg_last_error());
+                                                                } else {
+                                                                     if($row2 = pg_fetch_array($result2)){
+                                                                         echo $row2[0];
+                                                                     }
+                                                                     $count = 1;
+                                                                     while($count < $GLOBALS['MAX_NAME'] and $row2 = pg_fetch_array($result2)) {
+                                                                         echo ', '.$row2[0];
+                                                                         $count++;
+                                                                     }
+                                                                     if ($row2 = pg_fetch_array($result2)){
+                                                                         echo ', ...';
+                                                                     }
+                                                                 }
+                                                             ?></td>
                             <td class="movie_nrating">(<?php echo $row[3]?> ratings)</td>
                         </tr>
                     </table></td></tr>
