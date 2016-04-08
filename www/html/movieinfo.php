@@ -7,6 +7,7 @@
 <?php
     if (!isset($_GET['movieid'])){
         header("Location: browse.php");
+        die("No movie argument");
     }
 
     if(isset($_SESSION['username'])){
@@ -23,7 +24,8 @@
 
 
     }else{
-    	header("Location: http://www2.movieexchange.xyz:8080/index.php");
+    	header("Location: index.php");
+        die("Not logged in");
     }
 
     $query = "SELECT movieId, movieName, description, country, releaseDate, numberRating,
