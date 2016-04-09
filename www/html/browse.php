@@ -59,7 +59,7 @@ if ($currentPage !== 1){
 }
 
 $searchPSQL = "";
-if (isset($_POST['constraint'])==="actor"){
+if ($_POST['constraint']==="actor"){
     $searchPSQL = " WHERE EXISTS (SELECT * FROM moviedb.actor
                                  INNER JOIN moviedb.role
                                  ON role.actorId=actor.actorId
@@ -68,22 +68,22 @@ if (isset($_POST['constraint'])==="actor"){
                                  WHERE RolePlaysIn.movieId=movie.movieId AND
                                  (actor.fname LIKE '%".$_POST['search_text']."%' OR
                                   actor.lname LIKE '%".$_POST['search_text']."%')";
-} elseif (isset($_POST['constraint'])==="title"){
+} elseif ($_POST['constraint']==="title"){
     $searchPSQL = " WHERE movie.movieName LIKE '%".$_POST['search_text']."%'";
-} elseif (isset($_POST['constraint'])==="director"){
+} elseif ($_POST['constraint']==="director"){
     $searchPSQL = " WHERE EXISTS (SELECT * FROM moviedb.director
                                   INNER JOIN moviedb.directs
                                   ON directs.directorid=director.directorid
                                   WHERE directs.movieid=movie.movieId AND
                                   (director.fname LIKE '%".$_POST['search_text']."%' OR
                                    director.lname LIKE '%".$_POST['search_text']."%')";
-} elseif (isset($_POST['constraint'])==="topic"){
+} elseif ($_POST['constraint']==="topic"){
     $searchPSQL = " WHERE EXISTS (SELECT * FROM moviedb.topic
                                   INNER JOIN moviedb.MovieTopic
                                   ON MovieTopic.topicId=topic.topicId
                                   WHERE MovieTopic.movieId=movie.movieId AND
                                   topic.description LIKE '%".$_POST['search_text']."%')";
-} elseif (isset($_POST['constraint'])==="studio"){
+} elseif ($_POST['constraint']==="studio"){
     $searchPSQL = " WHERE EXISTS (SELECT * FROM moviedb.Studio
                                   INNER JOIN moviedb.Sponsors
                                   ON Sponsors.studioId=Studio.studioId
@@ -118,7 +118,7 @@ if (isset($_POST['constraint'])==="actor"){
                 <div id="top_search">
                     <form id="search_tool" method="post">
                         <p>Keywords:</p>
-                        <input type="text" name="search_text">
+                        <input required type="text" name="search_text">
                         <select name="constraint" required>
                             <option value="actor">Actor</option>
                         	<option selected value="title">Title</option>
@@ -126,7 +126,7 @@ if (isset($_POST['constraint'])==="actor"){
                         	<option value="topic">Topic</option>
                         	<option value="studio">Studio</option>
                         </select>
-                        <input type="submit" clas="button" value="Search"/>
+                        <input type="submit" class="button" value="Search"/>
                     </form>
                     <form method="post">
                         <label>Sort: </label>
