@@ -146,7 +146,7 @@ if ($_POST['constraint']==="actor"){
                                   FROM moviedb.movie ".$searchPSQL.";";
                         $result0 = pg_query($dbconn, $query0);
                         if(!$result0){
-                            die("Error reading database".pg_last_error());
+                            die("Error reading database".pg_last_error().$quesry0);
                         }
                         $numberOfPages=(int)ceil(1.0*pg_fetch_array($result0)[0]/$GLOBALS['NUM_RESULT_PAGE']);
                         pg_free_result($result0);
