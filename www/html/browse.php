@@ -28,6 +28,8 @@ if (!isset($_POST['sort'])){
     $_POST['sort']="dec-views";
 }
 
+$numberOfPages = 1;
+
 $sortPSQL = "ORDER BY numberRating DESC";
 if ($_POST['sort']==='inc-views'){
     $sortPSQL="ORDER BY numberRating ASC";
@@ -42,7 +44,7 @@ if ($_POST['sort']==='inc-views'){
 }
 
 $currentPage = 1;
-if (isset($_POST['page'])){
+if (isset($_GET['page'])){
     $currentPage = $_POST['page'];
 }
 
@@ -135,12 +137,20 @@ if (isset($_POST['constraint'])==="actor"){
                 </div>
                 <table id="result_table">
                     <?php
+                        $query0 = "SELECT COUNT(*)
+                                  FROM moviedb.movie ".$searchPSQL.";";
+                        $result0 = pg_query($dbconn, $query0);
+                        if(!$result0){
+                            die("Error reading database".pg_last_error());
+                        }
+                        $numberOfPages=(int)ceil(1.0*pg_fetch_array($result0)[0]/$GLOBALS['NUM_RESULT_PAGE']);
                         $query = "SELECT movieId, movieName, EXTRACT(YEAR FROM releaseDate) AS year, numberRating, ROUND(1.0*sumRating/numberRating,1) AS avg, releaseDate
                                   FROM moviedb.movie ".$sortPSQL." ".$resultRangePSQL.$searchPSQL.";";
-                         $result = pg_query($dbconn, $query);
-                         if(!$result){
-                         	die("KABOOM".pg_last_error());
-                         }
+                        $result = pg_query($dbconn, $query);
+                        if(!$result){
+                            die("Error reading database".pg_last_error());
+                        }
+
                          $x = 1;
                          while($row = pg_fetch_array($result)) { ?>
 
@@ -179,7 +189,7 @@ if (isset($_POST['constraint'])==="actor"){
                                                                                    WHERE directs.movieid='$row[0]';";
                                                                          $result2 = pg_query($dbconn, $query2);
                                                                          if(!$result2){
-                                                                            die("KABOOM".pg_last_error());
+                                                                            die("Error reading database".pg_last_error());
                                                                         } else {
                                                                              if($row2 = pg_fetch_array($result2)){
                                                                                  echo $row2[0];
@@ -205,7 +215,7 @@ if (isset($_POST['constraint'])==="actor"){
                                                                                WHERE RolePlaysIn.movieId='$row[0]';";
                                                                      $result2 = pg_query($dbconn, $query2);
                                                                      if(!$result2){
-                                                                        die("KABOOM".pg_last_error());
+                                                                        die("Error reading database".pg_last_error());
                                                                     } else {
                                                                          if($row2 = pg_fetch_array($result2)){
                                                                              echo $row2[0];
@@ -230,7 +240,7 @@ if (isset($_POST['constraint'])==="actor"){
                                                                            WHERE MovieTopic.movieId='$row[0]';";
                                                                  $result2 = pg_query($dbconn, $query2);
                                                                  if(!$result2){
-                                                                    die("KABOOM".pg_last_error());
+                                                                    die("Error reading database".pg_last_error());
                                                                 } else {
                                                                      if($row2 = pg_fetch_array($result2)){
                                                                          echo $row2[0];
@@ -250,15 +260,13 @@ if (isset($_POST['constraint'])==="actor"){
                     </table></td></tr>
                     <?php $x++; }?>
                 </table>
+                <label>Page: </label>
+                <?php
+                for($y = 1; $y <= $numberOfPages; $y++){
+                    ?><a href="browse.php?page=<?php echo $y?>"><?php echo $y ?></a><?php
+                }
+                ?>
             </div>
         </div>
-        <script type="text/javascript">
-           <!--
-              function setRating(movieId,rating)
-              {
-
-              }
-           //-->
-        </script>
     </body>
 </html>
