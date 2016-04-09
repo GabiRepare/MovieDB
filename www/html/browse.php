@@ -67,7 +67,7 @@ if ($_POST['constraint']==="actor"){
                                 ON RolePlaysIn.roleId=role.roleId
                                 WHERE RolePlaysIn.movieId=movie.movieId AND
                                 (actor.fname LIKE '%".$_POST['search_text']."%' OR
-                                 actor.lname LIKE '%".$_POST['search_text']."%')";
+                                 actor.lname LIKE '%".$_POST['search_text']."%'))";
 } elseif ($_POST['constraint']==="title"){
     $searchPSQL = "WHERE movie.movieName LIKE '%".$_POST['search_text']."%'";
 } elseif ($_POST['constraint']==="director"){
@@ -76,19 +76,19 @@ if ($_POST['constraint']==="actor"){
                                  ON directs.directorid=director.directorid
                                  WHERE directs.movieid=movie.movieId AND
                                  (director.fname LIKE '%".$_POST['search_text']."%' OR
-                                  director.lname LIKE '%".$_POST['search_text']."%')";
+                                  director.lname LIKE '%".$_POST['search_text']."%'))";
 } elseif ($_POST['constraint']==="topic"){
     $searchPSQL = "WHERE EXISTS (SELECT * FROM moviedb.topic
                                  INNER JOIN moviedb.MovieTopic
                                  ON MovieTopic.topicId=topic.topicId
                                  WHERE MovieTopic.movieId=movie.movieId AND
-                                 topic.description LIKE '%".$_POST['search_text']."%')";
+                                 topic.description LIKE '%".$_POST['search_text']."%'))";
 } elseif ($_POST['constraint']==="studio"){
     $searchPSQL = "WHERE EXISTS (SELECT * FROM moviedb.Studio
                                  INNER JOIN moviedb.Sponsors
                                  ON Sponsors.studioId=Studio.studioId
                                  WHERE Sponsors.movieId=movie.movieId AND
-                                 studio.name LIKE '%".$_POST['search_text']."%')";
+                                 studio.name LIKE '%".$_POST['search_text']."%'))";
 }
 ?>
 
