@@ -1,6 +1,4 @@
 <?php
-session_start();
-
 if (!isset($_POST['movieid'])){
     die("No movie argument");
 }
@@ -17,33 +15,29 @@ if(isset($_SESSION['username'])){
   $conn_string="host=www2.movieexchange.xyz port=5432 dbname=moviedb user=guest password=20160411Due";
 
   //Connect to database
-  $dbconn=pg_connect($conn_string) or die("Connection Failed");
+  $dbconnx=pg_connect($conn_string) or die("Connection Failed");
 }
 else {
     die("Not logged in");
 }
 
+$queryx="SELECT rating FROM moviedb.rates WHERE rates.movieid='".$_POST['movieid']."' AND rates.userid='".$_SESSION['username']."';";
+$resultx=pg_query($dbconnx, $queryx);
 $date = date('Y-m-d');
-$query="INSERT INTO moviedb.Rates(userid, movieId, rateDate, rating)
-        VALUES ('".$_SESSION["username"]."', '".$_POST['movieid']."', '".$date."', '".$_POST['rating']."')
-        ON CONFLICT UPDATE;";
-$result=pg_query($dbconn, $query);
+if($rowx=pg_fetch_array($resultx)){
+    $queryx="UPDATE moviedb.rates SET rateDate='".$date."', rating='".$_POST['rating']."'
+             WHERE rates.userid='".$_SESSION["username"]."' AND rates.movieId='".$_POST['movieid']."';";
+} else {
+    $queryx="INSERT INTO moviedb.rates (userid, movieid, ratedate, rating)
+             VALUES ('".$_SESSION["username"]."', '".$_POST['movieid']."', '".$date."', '".$_POST['rating']."');";
+}
 
-if(!$result){
+$resultx=pg_query($dbconnx, $queryx);
+
+if(!$resultx){
     die("Error in SQL entry: ".pg_last_error());
 }
-pg_free_result($result);
-pg_close($dbconn);
+
+pg_free_result($resultx);
+pg_close($dbconnx);
 ?>
-<!-- Test -->
-<!Doctype html>
-<html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="stylesheet.php"/>
-        <title>Test</title>
-        </script>
-    </head>
-    <body>
-        Test
-    </body>
-</html>

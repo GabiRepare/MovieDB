@@ -1,8 +1,13 @@
+<?php header("Content-type: text/css; charset: UTF-8");
+session_start();
+$GLOBALS['NUM_RESULT_PAGE']=20;?>
 @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
 body {
     font-family: Calibri, sans-serif;
     margin: 0px;
     background-color: white;
+    display: inline-block;
+    text-align: center;
 }
 
 #header h1 {
@@ -39,15 +44,20 @@ td {
 }
 
 #top_pane {
-    width: 100%;
     padding-top: 10px;
     padding-left: 10px;
     padding-right: 10px;
-    display: inline-flex;;
+    display: inline-flex;
+    text-align: center;
+    width: 52em;
+}
+
+#top_pane_filler {
+    width: 30em;
+    height: 3em;
 }
 
 #left_pane {
-    width: 30%;
     float: left;
     padding-left: 10px;
     padding-bottom: 10px;
@@ -55,17 +65,21 @@ td {
 }
 
 #right_pane {
-    width: 70%;
-    float: right;
+    display: inline-block;
+    text-align: left;
 }
 
 #browse_pane {
     background-color: #DDDDDD;
-    margin-right: 10px;
-    margin-left: 10px;
+    margin-left: auto;
+    margin-right: auto;
     margin-bottom: 10px;
     overflow: hidden;
-    width: 70em;
+    width: 50em;
+    display: inline-block;
+    padding-right: 1em;
+    padding-left: 1em;
+    padding-bottom: 1em;
 }
 
 #top_search {
@@ -204,11 +218,22 @@ td {
     text-align: right;
 }
 
+.page_link {
+    margin: 0.5em;
+}
+
+#currentPage {
+    font-size: 1.5em;
+}
+
+#page_links {
+    text-align: center;
+}
+
 fieldset, label { margin: 0; padding: 0; }
 
 /****** Style Star Rating Widget **************************************************************/
 <?php
-session_start();
 
 for ($i = 1; $i <= $GLOBALS['NUM_RESULT_PAGE']; $i++) { ?>
 #rating<?php echo $i?> {
