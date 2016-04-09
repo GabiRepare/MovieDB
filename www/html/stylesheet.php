@@ -207,15 +207,18 @@ td {
 fieldset, label { margin: 0; padding: 0; }
 
 /****** Style Star Rating Widget **************************************************************/
+<?php
+session_start();
 
-.rating {
+for ($i = 1; $i <= $GLOBALS['NUM_RESULT_PAGE']; $i++) { ?>
+#rating<?php echo $i?> {
   border: none;
   float: right;
   text-align: right;
 }
 
-.rating > input { display: none; }
-.rating > label:before {
+#rating<?php echo $i?> > input { display: none; }
+#rating<?php echo $i?> > label:before {
   margin: 5px;
   font-size: 2em;
   font-family: FontAwesome;
@@ -223,23 +226,24 @@ fieldset, label { margin: 0; padding: 0; }
   content: "\f005";
 }
 
-.rating > .half:before {
+#rating<?php echo $i?> > .half:before {
   content: "\f089";
   position: absolute;
 }
 
-.rating > label {
+#rating<?php echo $i?> > label {
   color: #FFF;
  float: right;
 }
 
 /***** CSS Magic to Highlight Stars on Hover *****/
 
-.rating > input:checked ~ label, /* show gold star when clicked */
-.rating:not(:checked) > label:hover, /* hover current star */
-.rating:not(:checked) > label:hover ~ label { color: #FFD700;  } /* hover previous stars in list */
+#rating<?php echo $i?> > input:checked ~ label, /* show gold star when clicked */
+#rating<?php echo $i?>:not(:checked) > label:hover, /* hover current star */
+#rating<?php echo $i?>:not(:checked) > label:hover ~ label { color: #FFD700;  } /* hover previous stars in list */
 
-.rating > input:checked + label:hover, /* hover current star when changing rating */
-.rating > input:checked ~ label:hover,
-.rating > label:hover ~ input:checked ~ label, /* lighten current selection */
-.rating > input:checked ~ label:hover ~ label { color: #FFED85;  }
+#rating<?php echo $i?> > input:checked + label:hover, /* hover current star when changing rating */
+#rating<?php echo $i?> > input:checked ~ label:hover,
+#rating<?php echo $i?> > label:hover ~ input:checked ~ label, /* lighten current selection */
+#rating<?php echo $i?> > input:checked ~ label:hover ~ label { color: #FFED85;  }
+<?php }?>

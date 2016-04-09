@@ -23,14 +23,66 @@ if(isset($_SESSION['username'])){
     die("Not logged in");
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //something posted
+//Set the default sort
+if (!isset($_POST['sort'])){
+    $_POST['sort']="dec-views";
+}
 
-    if (isset($_POST['btnDelete'])) {
-        // btnDelete
-    } else {
-        //assume btnSubmit
-    }
+$sortPSQL = "ORDER BY numberRating DESC";
+if ($_POST['sort']==='inc-views'){
+    $sortPSQL="ORDER BY numberRating ASC";
+} elseif ($_POST['sort']==='dec-rating') {
+    $sortPSQL="ORDER BY avg DESC";
+} elseif ($_POST['sort']==='inc-rating') {
+    $sortPSQL="ORDER BY avg ASC";
+} elseif ($_POST['sort']==='dec-date') {
+    $sortPSQL="ORDER BY releaseDate DESC";
+} elseif ($_POST['sort']==='inc-date') {
+    $sortPSQL="ORDER BY releaseDate DESC";
+}
+
+$currentPage = 1;
+if (isset($_POST['page'])){
+    $currentPage = $_POST['page'];
+}
+
+$resultRangePSQL = "LIMIT ".$GLOBALS['NUM_RESULT_PAGE'];
+if ($currentPage !== 1){
+    $numberToSkip = ($currentPage-1)*$GLOBALS['NUM_RESULT_PAGE'];
+    $resultRangePSQL = "LIMIT ".$GLOBALS['NUM_RESULT_PAGE']." OFFSET ".$numberToSkip;
+}
+
+$searchPSQL = "";
+if (isset($_POST['constraint'])==="actor"){
+    $searchPSQL = " WHERE EXISTS (SELECT * FROM moviedb.actor
+                                 INNER JOIN moviedb.role
+                                 ON role.actorId=actor.actorId
+                                 INNER JOIN moviedb.RolePlaysIn
+                                 ON RolePlaysIn.roleId=role.roleId
+                                 WHERE RolePlaysIn.movieId=movie.movieId AND
+                                 (actor.fname LIKE '%".$_POST['search_text']."%' OR
+                                  actor.lname LIKE '%".$_POST['search_text']."%')";
+} elseif (isset($_POST['constraint'])==="title"){
+    $searchPSQL = " WHERE movie.movieName LIKE '%".$_POST['search_text']."%'";
+} elseif (isset($_POST['constraint'])==="director"){
+    $searchPSQL = " WHERE EXISTS (SELECT * FROM moviedb.director
+                                  INNER JOIN moviedb.directs
+                                  ON directs.directorid=director.directorid
+                                  WHERE directs.movieid=movie.movieId AND
+                                  (director.fname LIKE '%".$_POST['search_text']."%' OR
+                                   director.lname LIKE '%".$_POST['search_text']."%')";
+} elseif (isset($_POST['constraint'])==="topic"){
+    $searchPSQL = " WHERE EXISTS (SELECT * FROM moviedb.topic
+                                  INNER JOIN moviedb.MovieTopic
+                                  ON MovieTopic.topicId=topic.topicId
+                                  WHERE MovieTopic.movieId=movie.movieId AND
+                                  topic.description LIKE '%".$_POST['search_text']."%')";
+} elseif (isset($_POST['constraint'])==="studio"){
+    $searchPSQL = " WHERE EXISTS (SELECT * FROM moviedb.Studio
+                                  INNER JOIN moviedb.Sponsors
+                                  ON Sponsors.studioId=Studio.studioId
+                                  WHERE Sponsors.movieId=movie.movieId AND
+                                  studio.name LIKE '%".$_POST['search_text']."%')";
 }
 ?>
 
@@ -57,19 +109,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div id="left_pane"></div>
             <div id="right_pane">
                 <div id="top_search">
-                    <div id="search_tool">
+                    <form id="search_tool" method="post">
                         <p>Keywords:</p>
                         <input type="text" name="search_text">
-                        <a class="button" href="">Search</a>
-                    </div>
+                        <select name="constraint" required>
+                            <option value="actor">Actor</option>
+                        	<option selected value="title">Title</option>
+                        	<option value="director">Director</option>
+                        	<option value="topic">Topic</option>
+                        	<option value="studio">Studio</option>
+                        </select>
+                        <input type="submit" clas="button" value="Search"/>
+                    </form>
+                    <form method="post">
+                        <label>Sort: </label>
+                        <select name="sort" required onchange="if (this.selectedIndex) this.form.submit();">
+                            <option selected value="dec-views">Most seen first</option>
+                            <option value="inc-views">Less seen first</option>
+                            <option value="dec-rating">Best rated first</option>
+                            <option value="inc-rating">Worst rated first</option>
+                            <option value="dec-date">Most recent first</option>
+                            <option value="inc-date">Oldest first</option>
+                        </select>
+                    </form>
                 </div>
                 <table id="result_table">
                     <?php
-                        $query = "SELECT movieId, movieName, EXTRACT(YEAR FROM releaseDate) AS year, numberRating, ROUND(1.0*sumRating/numberRating,1) AS avg FROM moviedb.movie ORDER BY avg DESC LIMIT ".(string)$GLOBALS['NUM_RESULT_PAGE'].";";
+                        $query = "SELECT movieId, movieName, EXTRACT(YEAR FROM releaseDate) AS year, numberRating, ROUND(1.0*sumRating/numberRating,1) AS avg, releaseDate
+                                  FROM moviedb.movie ".$sortPSQL." ".$resultRangePSQL.$searchPSQL.";";
                          $result = pg_query($dbconn, $query);
                          if(!$result){
                          	die("KABOOM".pg_last_error());
                          }
+                         $x = 1;
                          while($row = pg_fetch_array($result)) { ?>
 
                     <tr><td><table class="result_entry">
@@ -83,7 +155,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             </td>
                             <td class="rating_stars" rowspan="2">
                                 <form action="setrating.php" method="post">
-                                <fieldset class="rating">
+                                <fieldset id="rating<?php echo $x?>">
                                     <input onchange='this.form.submit();' type="radio" id="star5" name="rating" value="5.0" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
                                     <input onchange='this.form.submit();' type="radio" id="star4half" name="rating" value="4.5" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
                                     <input onchange='this.form.submit();' type="radio" id="star4" name="rating" value="4.0" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
@@ -176,7 +248,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <td class="movie_nrating">(<?php echo $row[3]?> ratings)</td>
                         </tr>
                     </table></td></tr>
-                    <?php }?>
+                    <?php $x++; }?>
                 </table>
             </div>
         </div>
