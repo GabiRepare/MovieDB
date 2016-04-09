@@ -108,6 +108,12 @@
             <tr><td><?php echo $row5[0]?></td></tr><?php } ?>
         </table>
 <?php }
+pg_free_result($result);
+pg_free_result($result2);
+pg_free_result($result3);
+pg_free_result($result4);
+pg_free_result($result5);
+pg_close($dbconn);
  ?>
  </body>
  </html>

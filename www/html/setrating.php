@@ -32,7 +32,8 @@ $result=pg_query($dbconn, $query);
 if(!$result){
     die("Error in SQL entry: ".pg_last_error());
 }
-
+pg_free_result($result);
+pg_close($dbconn);
 ?>
 <!-- Test -->
 <!Doctype html>

@@ -144,6 +144,7 @@ if (isset($_POST['constraint'])==="actor"){
                             die("Error reading database".pg_last_error());
                         }
                         $numberOfPages=(int)ceil(1.0*pg_fetch_array($result0)[0]/$GLOBALS['NUM_RESULT_PAGE']);
+                        pg_free_result($result0);
                         $query = "SELECT movieId, movieName, EXTRACT(YEAR FROM releaseDate) AS year, numberRating, ROUND(1.0*sumRating/numberRating,1) AS avg, releaseDate
                                   FROM moviedb.movie ".$sortPSQL." ".$resultRangePSQL.$searchPSQL.";";
                         $result = pg_query($dbconn, $query);
@@ -203,6 +204,7 @@ if (isset($_POST['constraint'])==="actor"){
                                                                                  echo ', ...';
                                                                              }
                                                                          }
+                                                                         pg_free_result($result2);
                                                                         ?></td>
                         </tr>
                         <tr>
@@ -229,6 +231,7 @@ if (isset($_POST['constraint'])==="actor"){
                                                                              echo ', ...';
                                                                          }
                                                                      }
+                                                                     pg_free_result($result2);
                                                                 ?></td>
                             <td class="movie_avg"><?php echo $row[4]?>/5</td>
                         </tr>
@@ -254,6 +257,7 @@ if (isset($_POST['constraint'])==="actor"){
                                                                          echo ', ...';
                                                                      }
                                                                  }
+                                                                 pg_free_result($result2);
                                                              ?></td>
                             <td class="movie_nrating">(<?php echo $row[3]?> ratings)</td>
                         </tr>
@@ -265,6 +269,8 @@ if (isset($_POST['constraint'])==="actor"){
                 for($y = 1; $y <= $numberOfPages; $y++){
                     ?><a href="browse.php?page=<?php echo $y?>"><?php echo $y ?></a><?php
                 }
+                pg_free_result($result);
+                pg_close($dbconn);
                 ?>
             </div>
         </div>
