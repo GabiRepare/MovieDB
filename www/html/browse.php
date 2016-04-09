@@ -91,7 +91,7 @@ if (isset($_POST['constraint'])==="actor"){
 <!Doctype html>
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+        <link rel="stylesheet" type="text/css" href="stylesheet.php"/>
         <title>Browse MovieExchange</title>
         <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js'>
         </script>

@@ -38,7 +38,7 @@ if(!$result){
 <!Doctype html>
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+        <link rel="stylesheet" type="text/css" href="stylesheet.php"/>
         <title>Test</title>
         </script>
     </head>

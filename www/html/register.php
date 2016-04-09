@@ -58,7 +58,7 @@ if(array_key_exists('save',$_POST)){
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" type="text/css" href="css/style1.css"/>
+<link rel="stylesheet" type="text/css" href="css/stylesheet.php"/>
 <title>Settings</title>
 </head>
 

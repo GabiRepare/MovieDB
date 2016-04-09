@@ -2,7 +2,7 @@
 <html>
     <header>
         <title>Movie Information</title>
-        <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+        <link rel="stylesheet" type="text/css" href="stylesheet.php"/>
     </header>
     <body>
 <?php
