@@ -60,35 +60,35 @@ if ($currentPage !== 1){
 
 $searchPSQL = "";
 if ($_POST['constraint']==="actor"){
-    $searchPSQL = " WHERE EXISTS (SELECT * FROM moviedb.actor
-                                 INNER JOIN moviedb.role
-                                 ON role.actorId=actor.actorId
-                                 INNER JOIN moviedb.RolePlaysIn
-                                 ON RolePlaysIn.roleId=role.roleId
-                                 WHERE RolePlaysIn.movieId=movie.movieId AND
-                                 (actor.fname LIKE '%".$_POST['search_text']."%' OR
-                                  actor.lname LIKE '%".$_POST['search_text']."%')";
+    $searchPSQL = "WHERE EXISTS (SELECT * FROM moviedb.actor
+                                INNER JOIN moviedb.role
+                                ON role.actorId=actor.actorId
+                                INNER JOIN moviedb.RolePlaysIn
+                                ON RolePlaysIn.roleId=role.roleId
+                                WHERE RolePlaysIn.movieId=movie.movieId AND
+                                (actor.fname LIKE '%".$_POST['search_text']."%' OR
+                                 actor.lname LIKE '%".$_POST['search_text']."%')";
 } elseif ($_POST['constraint']==="title"){
-    $searchPSQL = " WHERE movie.movieName LIKE '%".$_POST['search_text']."%'";
+    $searchPSQL = "WHERE movie.movieName LIKE '%".$_POST['search_text']."%'";
 } elseif ($_POST['constraint']==="director"){
-    $searchPSQL = " WHERE EXISTS (SELECT * FROM moviedb.director
-                                  INNER JOIN moviedb.directs
-                                  ON directs.directorid=director.directorid
-                                  WHERE directs.movieid=movie.movieId AND
-                                  (director.fname LIKE '%".$_POST['search_text']."%' OR
-                                   director.lname LIKE '%".$_POST['search_text']."%')";
+    $searchPSQL = "WHERE EXISTS (SELECT * FROM moviedb.director
+                                 INNER JOIN moviedb.directs
+                                 ON directs.directorid=director.directorid
+                                 WHERE directs.movieid=movie.movieId AND
+                                 (director.fname LIKE '%".$_POST['search_text']."%' OR
+                                  director.lname LIKE '%".$_POST['search_text']."%')";
 } elseif ($_POST['constraint']==="topic"){
-    $searchPSQL = " WHERE EXISTS (SELECT * FROM moviedb.topic
-                                  INNER JOIN moviedb.MovieTopic
-                                  ON MovieTopic.topicId=topic.topicId
-                                  WHERE MovieTopic.movieId=movie.movieId AND
-                                  topic.description LIKE '%".$_POST['search_text']."%')";
+    $searchPSQL = "WHERE EXISTS (SELECT * FROM moviedb.topic
+                                 INNER JOIN moviedb.MovieTopic
+                                 ON MovieTopic.topicId=topic.topicId
+                                 WHERE MovieTopic.movieId=movie.movieId AND
+                                 topic.description LIKE '%".$_POST['search_text']."%')";
 } elseif ($_POST['constraint']==="studio"){
-    $searchPSQL = " WHERE EXISTS (SELECT * FROM moviedb.Studio
-                                  INNER JOIN moviedb.Sponsors
-                                  ON Sponsors.studioId=Studio.studioId
-                                  WHERE Sponsors.movieId=movie.movieId AND
-                                  studio.name LIKE '%".$_POST['search_text']."%')";
+    $searchPSQL = "WHERE EXISTS (SELECT * FROM moviedb.Studio
+                                 INNER JOIN moviedb.Sponsors
+                                 ON Sponsors.studioId=Studio.studioId
+                                 WHERE Sponsors.movieId=movie.movieId AND
+                                 studio.name LIKE '%".$_POST['search_text']."%')";
 }
 ?>
 
@@ -151,7 +151,7 @@ if ($_POST['constraint']==="actor"){
                         $numberOfPages=(int)ceil(1.0*pg_fetch_array($result0)[0]/$GLOBALS['NUM_RESULT_PAGE']);
                         pg_free_result($result0);
                         $query = "SELECT movieId, movieName, EXTRACT(YEAR FROM releaseDate) AS year, numberRating, ROUND(1.0*sumRating/numberRating,1) AS avg, releaseDate
-                                  FROM moviedb.movie ".$sortPSQL." ".$resultRangePSQL.$searchPSQL.";";
+                                  FROM moviedb.movie ".$searchPSQL." ".$sortPSQL." ".$resultRangePSQL.";";
                         $result = pg_query($dbconn, $query);
                         if(!$result){
                             die("Error reading database".pg_last_error().$query);
