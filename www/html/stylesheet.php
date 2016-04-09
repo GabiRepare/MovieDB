@@ -230,6 +230,10 @@ td {
     text-align: center;
 }
 
+.bodyMovieInfo {
+    text-align: left;
+}
+
 fieldset, label { margin: 0; padding: 0; }
 
 /****** Style Star Rating Widget **************************************************************/

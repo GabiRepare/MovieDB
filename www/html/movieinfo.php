@@ -4,7 +4,7 @@
         <title>Movie Information</title>
         <link rel="stylesheet" type="text/css" href="stylesheet.php"/>
     </header>
-    <body>
+    <body class="bodyMoviInfo">
 <?php
     session_start();
 
