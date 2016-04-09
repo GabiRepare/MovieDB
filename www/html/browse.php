@@ -69,7 +69,7 @@ if ($_POST['constraint']==="actor"){
                                 (LOWER(actor.fname) LIKE LOWER('%".$_POST['search_text']."%') OR
                                  LOWER(actor.lname) LIKE LOWER('%".$_POST['search_text']."%')))";
 } elseif ($_POST['constraint']==="title"){
-    $searchPSQL = "WHERE LOER(movie.movieName) LIKE LOWER('%".$_POST['search_text']."%')";
+    $searchPSQL = "WHERE LOWER(movie.movieName) LIKE LOWER('%".$_POST['search_text']."%')";
 } elseif ($_POST['constraint']==="director"){
     $searchPSQL = "WHERE EXISTS (SELECT * FROM moviedb.director
                                  INNER JOIN moviedb.directs
