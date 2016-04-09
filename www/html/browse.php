@@ -154,7 +154,7 @@ if ($_POST['constraint']==="actor"){
                                   FROM moviedb.movie ".$sortPSQL." ".$resultRangePSQL.$searchPSQL.";";
                         $result = pg_query($dbconn, $query);
                         if(!$result){
-                            die("Error reading database".pg_last_error());
+                            die("Error reading database".pg_last_error().$query);
                         }
 
                          $x = 1;
