@@ -90,22 +90,22 @@ if($success==2){
 	echo "<span style=color:#FF0000;text-align:center;>Registration Completed Successfully  "."<a href='index.php'>Click here to login</a></span>";
 }else if($success==1){
 echo "<span style=color:#FF0000;text-align:center;>Username already exists, try again</span>";
-}else{}
+}else{
  ?>
  <br>
 
 <form id="mainform" name="mainform" method="post" action="">
 <p><label for="userid">Create a User ID: </label><br>
-<input  name="userid" type="text" style = "font-size:7pt;" id="userid" required/>
+<input  name="userid" type="text" id="userid" required/>
 </p>
 <p><label for="fname">First Name: </label><br>
-<input name="fname" type="text" style = "font-size:7pt;" id="fname" required/>
+<input name="fname" type="text" id="fname" required/>
 </p>
 <p><label for="lname">Last Name: </label><br>
-<input name="lname" type="text" style = "font-size:7pt;" id="lname" required/>
+<input name="lname" type="text" id="lname" required/>
 </p>
 <p><label for="email">Email: </label><br>
-<input name="email" type="email" style = "font-size:7pt;" id="email" required/>
+<input name="email" type="email" id="email" required/>
 </p>
 <p><label for "gender">Gender: </label><br>
 <select name="gender" required>
@@ -137,6 +137,7 @@ echo "<span style=color:#FF0000;text-align:center;>Username already exists, try 
 <input type="submit" name="save" value="Register"/>
 </p>
 </form>
+<?php }?>
  </center>
  <script>
  var password = document.getElementById("password")
