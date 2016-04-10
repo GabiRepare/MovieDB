@@ -82,7 +82,7 @@ if ($_POST['constraint']==="actor"){
                                  INNER JOIN moviedb.MovieTopic
                                  ON MovieTopic.topicId=topic.topicId
                                  WHERE MovieTopic.movieId=movie.movieId AND
-                                 LOWER(topic.description) LIKE LOWER('%".$_POST['search_text']."%')))";
+                                 LOWER(topic.description) LIKE LOWER('%".$_POST['search_text']."%'))";
 } elseif ($_POST['constraint']==="studio"){
     $searchPSQL = "WHERE EXISTS (SELECT * FROM moviedb.Studio
                                  INNER JOIN moviedb.Sponsors
