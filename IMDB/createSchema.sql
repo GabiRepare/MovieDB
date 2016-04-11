@@ -13907,4 +13907,5 @@ INSERT INTO Rates(userId, movieId, rating, RateDate) VALUES
 ,('user0300','mov134','5.0','2014-11-22')
 ,('user0300','mov198','4.5','2007-07-11')
 ,('user0300','mov067','3.0','2005-04-20')
+,('user0300','mov250','3.0','2005-04-20')
 ;
