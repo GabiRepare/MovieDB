@@ -34,18 +34,7 @@ if (isset($_POST['rating'])){
 
 $numberOfPages = 1;
 
-$sortPSQL = "ORDER BY numberRating DESC";
-if ($_POST['sort']==='inc-views'){
-    $sortPSQL="ORDER BY numberRating ASC";
-} elseif ($_POST['sort']==='dec-rating') {
-    $sortPSQL="ORDER BY avg DESC";
-} elseif ($_POST['sort']==='inc-rating') {
-    $sortPSQL="ORDER BY avg ASC";
-} elseif ($_POST['sort']==='dec-date') {
-    $sortPSQL="ORDER BY releaseDate DESC";
-} elseif ($_POST['sort']==='inc-date') {
-    $sortPSQL="ORDER BY releaseDate DESC";
-}
+$sortPSQL="ORDER BY avg DESC";
 
 $currentPage = 1;
 if (isset($_GET['page'])){
@@ -96,7 +85,7 @@ if ($_POST['constraint']==="actor"){
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="stylesheet.php"/>
-        <title>Browse MovieExchange</title>
+        <title>Suggestions MovieExchange</title>
         <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js'>
         </script>
     </head>
@@ -108,38 +97,14 @@ if ($_POST['constraint']==="actor"){
             <p>Logged as <?php echo $usname ?></p>
         </div>
         <div id="top_pane">
-            <a href="browse.php" class="button" id="browse_btn">Rate Movies</a>
-            <a href="suggestions.php" class="button" id="suggestions">Suggestions</a>
+            <a href="browse.php" class="button" id="suggestions">Rate Movies</a>
+            <a href="suggestions.php" class="button" id="browse_btn">Suggestions</a>
             <div id="top_pane_filler"></div>
         </div>
         <div id="browse_pane">
             <div id="left_pane"></div>
             <div id="right_pane">
-                <div id="top_search">
-                    <form id="search_tool" method="post">
-                        <p>Keywords:</p>
-                        <input required type="text" name="search_text">
-                        <select name="constraint" required>
-                            <option value="actor">Actor</option>
-                        	<option selected value="title">Title</option>
-                        	<option value="director">Director</option>
-                        	<option value="topic">Topic</option>
-                        	<option value="studio">Studio</option>
-                        </select>
-                        <input type="submit" class="button" value="Search"/>
-                    </form>
-                    <form method="post">
-                        <label>Sort: </label>
-                        <select name="sort" required onchange=" this.form.submit();">
-                            <option <?php echo ($_POST['sort']=='dec-views')?'selected':''?> value="dec-views">Most seen first</option>
-                            <option <?php echo ($_POST['sort']=='inc-views')?'selected':''?> value="inc-views">Less seen first</option>
-                            <option <?php echo ($_POST['sort']=='dec-rating')?'selected':''?> value="dec-rating">Best rated first</option>
-                            <option <?php echo ($_POST['sort']=='inc-rating')?'selected':''?> value="inc-rating">Worst rated first</option>
-                            <option <?php echo ($_POST['sort']=='dec-date')?'selected':''?> value="dec-date">Most recent first</option>
-                            <option <?php echo ($_POST['sort']=='inc-date')?'selected':''?> value="inc-date">Oldest first</option>
-                        </select>
-                    </form>
-                </div>
+                
                 <table id="result_table">
                     <?php
                         $query0 = "SELECT COUNT(*)
@@ -151,7 +116,7 @@ if ($_POST['constraint']==="actor"){
                         $numberOfPages=(int)ceil(1.0*pg_fetch_array($result0)[0]/$GLOBALS['NUM_RESULT_PAGE']);
                         pg_free_result($result0);
                         $query = "SELECT movieId, movieName, EXTRACT(YEAR FROM releaseDate) AS year, numberRating, ROUND(1.0*sumRating/numberRating,1) AS avg, releaseDate
-                                  FROM moviedb.movie ".$searchPSQL." ".$sortPSQL." ".$resultRangePSQL.";";
+                                  FROM moviedb.movie ".$sortPSQL." ".$resultRangePSQL.";";
                         $result = pg_query($dbconn, $query);
                         if(!$result){
                             die("Error reading database".pg_last_error().$query);

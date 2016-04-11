@@ -170,5 +170,15 @@ FOREIGN KEY (studioId) REFERENCES Studio,
 FOREIGN KEY (movieId) REFERENCES Movie
 );
 
-/*CREATE FUNCTION get_suggestions(varchar(20)) RETURNS TABLE (movieId varchar(20))*/
-    /*AS $$ SELECT */
+CREATE FUNCTION get_suggestions(varchar(20)) RETURNS TABLE (movieId varchar(20))
+    AS $$
+            SELECT movieId ,(SELECT avg(rating) FROM
+              (SELECT rating, movieId FROM Rates F INNER JOIN
+                (SELECT userId FROM rates C INNER JOIN
+                    (SELECT movieID FROM
+                        (SELECT movieId, rating FROM Rates A
+                         WHERE A.userId = 'user0001' ORDER BY A.RateDate DESC LIMIT 40) AS B
+                     ORDER BY B.rating DESC LIMIT 10) AS D
+                 ON C.movieId = D.movieId WHERE C.userId != 'user0001' and C.rating > 3 ORDER BY C.rating DESC limit 50) AS E
+               ON F.userId  = E.userId) AS H WHERE H.movieId = G.movieId) AS I FROM Movie ORDER BY I DESC;
+        $$ LANGUAGE SQL;
