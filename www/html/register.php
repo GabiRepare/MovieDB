@@ -55,7 +55,7 @@ if ($response != null && $response->success) {
 		}else{
 
 
-		$query="INSERT INTO moviedb.USERS(userid, lname, fname, email, gender, agerange, password) VALUES ('$userid','$lname','$fname', '$email', '$gender', '$agerange', '$password')";
+		$query="INSERT INTO moviedb.USERS(userid, lname, fname, email, gender, agerangeid, password) VALUES ('$userid','$lname','$fname', '$email', '$gender', '$agerange', '$password')";
 		$result=pg_query($dbconn, $query);
 
 		if(!$result){
@@ -109,8 +109,8 @@ echo "<span style=color:#FF0000;text-align:center;>Username already exists, try 
 </p>
 <p><label for "gender">Gender: </label><br>
 <select name="gender" required>
-	<option value="male">Male</option>
-	<option value="female">Female</option>
+	<option value="m">Male</option>
+	<option value="f">Female</option>
 </select>
 </p>
 <p><label for "age">Your age: </label><br>
