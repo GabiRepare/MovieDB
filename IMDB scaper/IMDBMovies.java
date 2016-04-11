@@ -1,10 +1,11 @@
+
 /*
 Willem Kowal-7741241
 CSI 2132
 Winter 2016
 Final project
 
-Gathers data on movies from IMDB and saves them in a text file, formated for easy import though sql.
+Collects data from IMDB on actors.
 */
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -27,31 +28,31 @@ public class IMDBMovies {
 				"tt1298650", // Pirates (strange tides
 				"tt0499549", // Avatar
 				"tt0120338", // Titanic
-				"tt0172495",// Gladiator
-				"tt0133093", //Matrix
-				"tt0109830", //Forrest Gump
-				"tt1375666",//Inception
-				"tt1853728",//Django
-				"tt0361748",//Inglorious Basterds
-				"tt0993846",//Wolf Of Wall Street
-				"tt0816692",//Interstellar
-				"tt2015381", //Guardians of the galaxy
-				"tt0371746",//Iron man
-				"tt0468569",//Dark night
-				"tt1345836",//Dark night rises
-				"tt1877832",//Xmen future past
-				"tt0418279",//Transformers
-				"tt0480249",//I am legend
-				"tt0343818",//I robot
-				"tt0119654",//Men in black
-				"tt0120912",//Men in black 2
-				"tt0116629", //Independance day
-				"tt0319262",//Day after tomorrow
-				"tt1190080",//2012
-				"tt0407304",//War of the worlds
-				"tt0120616",//The mummy
-				"tt0167190",//Hellboy
-				
+				"tt0172495", // Gladiator
+				"tt0133093", // Matrix
+				"tt0109830", // Forrest Gump
+				"tt1375666", // Inception
+				"tt1853728", // Django
+				"tt0361748", // Inglorious Basterds
+				"tt0993846", // Wolf Of Wall Street
+				"tt0816692", // Interstellar
+				"tt2015381", // Guardians of the galaxy
+				"tt0371746", // Iron man
+				"tt0468569", // Dark night
+				"tt1345836", // Dark night rises
+				"tt1877832", // Xmen future past
+				"tt0418279", // Transformers
+				"tt0480249", // I am legend
+				"tt0343818", // I robot
+				"tt0119654", // Men in black
+				"tt0120912", // Men in black 2
+				"tt0116629", // Independance day
+				"tt0319262", // Day after tomorrow
+				"tt1190080", // 2012
+				"tt0407304", // War of the worlds
+				"tt0120616", // The mummy
+				"tt0167190",// Hellboy
+
 		};
 		try {
 			BufferedWriter out = new BufferedWriter(new FileWriter("movies.txt"));
@@ -80,8 +81,14 @@ public class IMDBMovies {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		String desc = whole.substring(20 + whole.indexOf("rec-outline"));
-		desc = desc.substring(0, desc.indexOf("</p>"));
+		String desc = whole.substring(25+whole.indexOf("itemprop=\"description\""));
+		desc = desc.substring(0, desc.indexOf("</div>"));
+		while (desc.charAt(0)==' '){
+			desc=desc.substring(1);
+		}
+		while (desc.charAt(desc.length()-1)==' '){
+			desc=desc.substring(0,desc.length()-2);
+		}
 		String title = whole.substring(25 + whole.indexOf("itemprop=\"name\""));
 		title = title.substring(0, title.indexOf("<") - 6);
 		String date = whole.substring(whole.indexOf("itemprop=\"datePublished\"") - 30,

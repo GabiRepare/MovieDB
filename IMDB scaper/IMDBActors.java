@@ -1,10 +1,11 @@
+
 /*
 Willem Kowal-7741241
 CSI 2132
 Winter 2016
 Final project
 
-Gathers data on actors from IMDB and saves them in a text file, formated for easy import though sql.
+Collects data from IMDB on actors.
 */
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -24,13 +25,19 @@ public class IMDBActors {
 				"nm1165110", // Hemsworth
 				"nm0719637", // Renner
 				"nm1089991", // Hiddleston
-				"nm0163988",// Gregg
-
+				"nm0163988", // Gregg
+				"nm0000354", // Damon
+				"nm2933757", //Gadot
+				"nm0147147",//Cavill
+				"nm0000255",//Affleck
+				"nm0001157",//Duke
+				"nm0010736",//Adams
+				"nm5397459",//Ridley				
 		};
 		try {
-			BufferedWriter out = new BufferedWriter(new FileWriter("actors.txt"));
+			BufferedWriter out = new BufferedWriter(new FileWriter("actors2.txt"));
 			String temp;
-			for (int i = 0; i < targets.length; i++) {
+			for (int i = 9; i < targets.length; i++) {
 				temp = "act" + String.format("%04d", (i + 1));
 				out.write(get(temp, targets[i]));
 			}
